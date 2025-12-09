@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Page;
+use Illuminate\Http\Request;
+
+class PageController extends Controller
+{
+    /**
+     * Display a public page.
+     */
+    public function show(Page $page)
+    {
+        if (!$page->is_published) {
+            abort(404);
+        }
+
+        return view('pages.show', [
+            'page' => $page,
+        ]);
+    }
+}

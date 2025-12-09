@@ -1,0 +1,1 @@
+<?php echo e($id); ?><?php /**PATH D:\Installed\Apps\laragon\www\starter\storage\framework\views/9463672b1f9a9ef4517c9f6a961c05e7.blade.php ENDPATH**/ ?>

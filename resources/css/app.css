@@ -1,0 +1,273 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* Configure dark mode for manual toggle (v4 syntax) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source './vendor/wire-elements/modal/resources/views/*.blade.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source './vendor/andisiahaan/livewire-modal/resources/views/*.blade.php';
+
+/* Safelists */
+@source inline("{sm:,md:,lg:,xl:,2xl:}max-w-{sm,md,lg,xl,2xl,3xl,4xl,5xl,6xl,7xl}");
+
+/* ========================================
+   CUSTOM THEME VARIABLES
+   ======================================== */
+
+@theme {
+    /* Primary Colors - Violet/Indigo */
+    --color-primary-50: oklch(0.97 0.02 285);
+    --color-primary-100: oklch(0.94 0.04 285);
+    --color-primary-200: oklch(0.88 0.08 285);
+    --color-primary-300: oklch(0.78 0.12 280);
+    --color-primary-400: oklch(0.68 0.18 275);
+    --color-primary-500: oklch(0.58 0.22 270);
+    --color-primary-600: oklch(0.50 0.24 268);
+    --color-primary-700: oklch(0.44 0.22 268);
+    --color-primary-800: oklch(0.38 0.18 268);
+    --color-primary-900: oklch(0.32 0.14 268);
+    --color-primary-950: oklch(0.24 0.10 268);
+
+    /* Secondary Colors - Emerald/Teal */
+    --color-secondary-50: oklch(0.97 0.02 165);
+    --color-secondary-100: oklch(0.94 0.04 165);
+    --color-secondary-200: oklch(0.88 0.08 165);
+    --color-secondary-300: oklch(0.78 0.12 165);
+    --color-secondary-400: oklch(0.68 0.16 165);
+    --color-secondary-500: oklch(0.58 0.18 165);
+    --color-secondary-600: oklch(0.50 0.16 165);
+    --color-secondary-700: oklch(0.44 0.14 165);
+    --color-secondary-800: oklch(0.38 0.12 165);
+    --color-secondary-900: oklch(0.32 0.10 165);
+    --color-secondary-950: oklch(0.24 0.08 165);
+
+    /* Dark Mode True Black */
+    --color-dark-base: #000000;
+    --color-dark-soft: #0a0a0a;
+    --color-dark-muted: #121212;
+    --color-dark-elevated: #1a1a1a;
+    --color-dark-border: #262626;
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Better focus styles */
+:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Custom scrollbar for supported browsers */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: oklch(0.7 0 0 / 0.3);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.6 0 0 / 0.5);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: oklch(0.4 0 0 / 0.5);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.5 0 0 / 0.6);
+}
+
+/* ========================================
+   GLASSMORPHISM UTILITIES
+   ======================================== */
+
+.glass {
+    background: oklch(1 0 0 / 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+    background: oklch(0 0 0 / 0.6);
+}
+
+.glass-subtle {
+    background: oklch(1 0 0 / 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.dark .glass-subtle {
+    background: oklch(0 0 0 / 0.4);
+}
+
+/* ========================================
+   GRADIENT UTILITIES
+   ======================================== */
+
+.gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+}
+
+.gradient-primary-subtle {
+    background: linear-gradient(135deg, var(--color-primary-50), var(--color-primary-100));
+}
+
+.dark .gradient-primary-subtle {
+    background: linear-gradient(135deg, var(--color-primary-950), var(--color-primary-900));
+}
+
+.gradient-accent {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+}
+
+.text-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-accent {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   ANIMATION UTILITIES
+   ======================================== */
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.3s ease-out;
+}
+
+.animate-fade-in-down {
+    animation: fade-in-down 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+    animation: slide-in-left 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+}
+
+/* ========================================
+   SIDEBAR STYLES
+   ======================================== */
+
+.sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
+}
+
+.sidebar-link-default {
+    @apply text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white;
+}
+
+.sidebar-link-active {
+    @apply bg-gradient-to-r from-primary-500/10 to-primary-600/10 text-primary-700 dark:from-primary-500/20 dark:to-primary-600/20 dark:text-primary-300 border-l-2 border-primary-500;
+}
+
+/* ========================================
+   BUTTON COMPONENT STYLES
+   ======================================== */
+
+.btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 dark:bg-primary-500 dark:hover:bg-primary-600;
+}
+
+.btn-secondary {
+    @apply bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500 dark:bg-secondary-500 dark:hover:bg-secondary-600;
+}
+
+.btn-outline {
+    @apply border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 focus:ring-slate-500;
+}
+
+.btn-ghost {
+    @apply text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 focus:ring-slate-500;
+}
