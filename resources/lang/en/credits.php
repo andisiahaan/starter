@@ -215,6 +215,15 @@ return [
             'type' => 'Transaction Type',
             'amount' => 'Amount',
             'description' => 'Description',
+            'search_user' => 'Search user by name or email...',
+            'current_credit' => 'Current Credit',
+            'select_type' => '-- Select Type --',
+            'amount_hint' => 'Use positive value to add credits, negative to subtract.',
+            'amount_placeholder' => 'Example: 100.00 or -50.00',
+            'description_placeholder' => 'Optional: Additional notes about this transaction...',
+            'preview_title' => 'Preview Changes',
+            'credit_before' => 'Current credit:',
+            'insufficient_warning' => 'Warning: User has insufficient credits for this deduction.',
         ],
         
         'detail' => [
@@ -222,6 +231,10 @@ return [
             'before_balance' => 'Balance Before',
             'after_balance' => 'Balance After',
             'reference' => 'Reference',
+            'credit_change' => 'Credit Change',
+            'before' => 'Before',
+            'after' => 'After',
+            'additional_info' => 'Additional Info',
         ],
         
         'empty' => 'No credit logs found.',
@@ -295,4 +308,25 @@ return [
             'loading' => 'Loading product...',
         ],
     ],
+    
+    // ==========================================
+    // ORDERS (Admin)
+    // ==========================================
+    'orders' => [
+        'table' => [
+            'order_id' => 'Order Number',
+            'customer' => 'Customer',
+            'product' => 'Product',
+        ],
+        'detail' => [
+            'payment_info' => 'Payment',
+            'payment_method' => 'Method',
+            'notes' => 'Notes',
+        ],
+        'actions' => [
+            'update_status' => 'Update Status',
+        ],
+    ],
+    
+    'credits' => 'Credits',
 ];

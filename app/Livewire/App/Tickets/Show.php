@@ -4,6 +4,7 @@ namespace App\Livewire\App\Tickets;
 
 use App\Helpers\Toast;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class Show extends Component
@@ -13,10 +14,7 @@ class Show extends Component
 
     public function mount(Ticket $ticket)
     {
-        // Ensure user owns this ticket
-        if ($ticket->user_id !== auth()->id()) {
-            abort(403);
-        }
+        Gate::authorize('view', $ticket);
         $this->ticket = $ticket->load(['replies.user']);
     }
 

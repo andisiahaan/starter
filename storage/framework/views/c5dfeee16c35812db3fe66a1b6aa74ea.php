@@ -11,7 +11,7 @@
         aria-label="Select Language">
 
         <!-- Current Language Flag -->
-        <span class="text-base"><?php echo e($currentLanguage['flag'] ?? '�'); ?></span>
+        <span class="text-base"><img src="https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/<?php echo e($currentLanguage['flag']); ?>.svg" alt="<?php echo e($currentLanguage['native_name']); ?>" class="w-6 h-6"></span>
         <span class="text-sm font-medium uppercase hidden sm:inline"><?php echo e($currentLocale); ?></span>
 
         <svg class="w-3.5 h-3.5 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $locale => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
             <a href="<?php echo e(route('language.switch', $locale)); ?>" 
                 class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors <?php echo e($currentLocale === $locale ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : 'text-slate-700 dark:text-slate-200'); ?>">
-                <span class="text-lg"><?php echo e($lang['flag']); ?></span>
+                <span class="text-lg"><img src="https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/<?php echo e($lang['flag']); ?>.svg" alt="<?php echo e($lang['native_name']); ?>" class="w-6 h-6"></span>
                 <span class="font-medium"><?php echo e($lang['native_name']); ?></span>
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($currentLocale === $locale): ?>
                 <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">

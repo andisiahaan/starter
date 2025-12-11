@@ -19,8 +19,6 @@ class TicketRepliedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $afterCommit = true;
-
     protected NotificationType $type;
 
     public function __construct(
@@ -28,6 +26,7 @@ class TicketRepliedNotification extends Notification implements ShouldQueue
         protected TicketReply $reply
     ) {
         $this->type = NotificationType::TICKET_REPLIED;
+        $this->afterCommit();
     }
 
     /**

@@ -26,7 +26,7 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex lg:items-center lg:ml-10 lg:gap-1">
                     <a href="{{ url('/') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-primary-400 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
-                        Home
+                        {{ __('common.nav.home') }}
                     </a>
 
                     <!-- Services Dropdown -->
@@ -34,7 +34,7 @@
                         <button @click="open = !open"
                             @click.away="open = false"
                             class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-primary-400 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
-                            Services
+                            {{ __('common.nav.services') }}
                             <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="px-4 py-3 bg-slate-50 dark:bg-white/5 border-t border-slate-100 dark:border-dark-border">
                                 <a href="#" class="flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
-                                    View all services
+                                    {{ __('common.nav.view_all_services') }}
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
@@ -97,13 +97,13 @@
                     </div>
 
                     <a href="#" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-primary-400 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
-                        Pricing
+                        {{ __('common.nav.pricing') }}
                     </a>
                     <a href="#" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-primary-400 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
-                        About
+                        {{ __('common.nav.about') }}
                     </a>
                     <a href="#" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-primary-400 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
-                        Contact
+                        {{ __('common.nav.contact') }}
                     </a>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                 <div class="hidden sm:flex sm:items-center sm:gap-2">
                     @auth
                     <a href="{{ url('/dashboard') }}" class="btn btn-ghost text-sm">
-                        Dashboard
+                        {{ __('common.nav.dashboard') }}
                     </a>
                     @else
                     <a href="{{ route('login') }}" class="btn btn-ghost text-sm">
@@ -157,13 +157,13 @@
         style="display: none;">
         <div class="px-4 py-3 space-y-1">
             <a href="{{ url('/') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5">
-                Home
+                {{ __('common.nav.home') }}
             </a>
 
             <!-- Mobile Services Dropdown -->
             <div x-data="{ open: false }">
                 <button @click="open = !open" class="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5">
-                    Services
+                    {{ __('common.nav.services') }}
                     <svg class="w-5 h-5 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
@@ -182,13 +182,13 @@
             </div>
 
             <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5">
-                Pricing
+                {{ __('common.nav.pricing') }}
             </a>
             <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5">
-                About
+                {{ __('common.nav.about') }}
             </a>
             <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5">
-                Contact
+                {{ __('common.nav.contact') }}
             </a>
         </div>
 
@@ -196,7 +196,7 @@
         <div class="px-4 py-4 border-t border-slate-200 dark:border-dark-border space-y-2">
             @auth
             <a href="{{ url('/dashboard') }}" class="block w-full btn btn-primary text-center">
-                Dashboard
+                {{ __('common.nav.dashboard') }}
             </a>
             @else
             <a href="{{ route('login') }}" class="block w-full btn btn-outline text-center">

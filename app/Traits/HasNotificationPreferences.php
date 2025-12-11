@@ -54,7 +54,7 @@ trait HasNotificationPreferences
         
         // 1. Check global settings first
         $globalSettings = setting('notifications');
-        $globalEnabled = $globalSettings['channels'][$channelValue] ?? false;
+        $globalEnabled = $globalSettings['channels'][$channelValue] ?? true;
         
         if (!$globalEnabled) {
             // Required channels are always enabled

@@ -79,7 +79,7 @@
                     </a>
                 </div>
             </div>
-
+            
             <!-- Roles with Submenu -->
             <div x-data="{ open: <?php echo e((request()->routeIs('admin.roles.*') || request()->routeIs('admin.permissions.*')) ? 'true' : 'false'); ?> }">
                 <button @click="open = !open"
@@ -92,7 +92,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('assign-roles')): ?>
                 <div x-show="open" x-collapse class="mt-1 ml-4 pl-4 border-l border-slate-200 dark:border-dark-border space-y-1">
                     <a href="<?php echo e(route('admin.roles.index')); ?>"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo e(request()->routeIs('admin.roles.index') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'); ?>">
@@ -100,7 +100,9 @@
 
                     </a>
                 </div>
+                <?php endif; ?>
                 
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manage-permissions')): ?>
                 <div x-show="open" x-collapse class="mt-1 ml-4 pl-4 border-l border-slate-200 dark:border-dark-border space-y-1">
                     <a href="<?php echo e(route('admin.permissions.index')); ?>"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo e(request()->routeIs('admin.permissions.index') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'); ?>">
@@ -108,7 +110,8 @@
 
                     </a>
                 </div>
-            </div>
+                <?php endif; ?>
+            </div>                 
         </div>
 
         <!-- Section: System -->
@@ -117,7 +120,8 @@
                 <?php echo e(__('admin.sidebar.system')); ?>
 
             </p>
-
+            
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manage-settings')): ?>
             <!-- Settings -->
             <a href="<?php echo e(route('admin.settings')); ?>"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 <?php echo e(request()->routeIs('admin.settings') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-l-2 border-primary-500' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'); ?>">
@@ -128,6 +132,7 @@
                 <?php echo e(__('admin.sidebar.settings')); ?>
 
             </a>
+            <?php endif; ?>
         </div>
 
         <!-- Section: Credit System -->

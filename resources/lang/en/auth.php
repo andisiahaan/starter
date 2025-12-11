@@ -40,7 +40,12 @@ return [
         'subtitle' => 'Enter your new password below.',
         'button' => 'Reset password',
         'success' => 'Your password has been reset successfully!',
+        'new_password' => 'New Password',
+        'confirm_password' => 'Confirm New Password',
     ],
+    
+    // Quick alias
+    'email' => 'Email',
 
     'verify_email' => [
         'title' => 'Verify Email',

@@ -1,7 +1,7 @@
 <div class="flex flex-col bg-white dark:bg-dark-elevated rounded-lg overflow-hidden">
     {{-- Header --}}
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Tambah Credit Log</h3>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('credits.credit_logs.add') }}</h3>
         <button wire:click="$dispatch('closeModal')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -32,7 +32,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="text-right">
-                                <div class="text-xs text-slate-500 dark:text-slate-400">Credit saat ini</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.credit_logs.form.current_credit') }}</div>
                                 <div class="font-semibold text-slate-900 dark:text-white">{{ number_format($selectedUser->credit, 2) }}</div>
                             </div>
                             <button type="button" wire:click="clearSelectedUser" class="p-1 text-slate-400 hover:text-red-500">
@@ -48,7 +48,7 @@
                         <input
                             type="text"
                             wire:model.live.debounce.300ms="userSearch"
-                            placeholder="Cari user berdasarkan nama atau email..."
+                            placeholder="{{ __('credits.credit_logs.form.search_user') }}"
                             class="block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm"
                         >
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -94,13 +94,13 @@
                     Amount <span class="text-red-500">*</span>
                 </label>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">
-                    Gunakan nilai positif untuk menambah credit, negatif untuk mengurangi.
+                    {{ __('credits.credit_logs.form.amount_hint') }}
                 </p>
                 <input
                     type="number"
                     wire:model="amount"
                     step="0.01"
-                    placeholder="Contoh: 100.00 atau -50.00"
+                    placeholder="{{ __('credits.credit_logs.form.amount_placeholder') }}"
                     class="block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm"
                 >
                 @error('amount')
@@ -111,13 +111,13 @@
             {{-- Type --}}
             <div>
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Tipe Transaksi <span class="text-red-500">*</span>
+                    {{ __('credits.credit_logs.form.type') }} <span class="text-red-500">*</span>
                 </label>
                 <select
                     wire:model="type"
                     class="block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm"
                 >
-                    <option value="">-- Pilih Tipe --</option>
+                    <option value="">{{ __('credits.credit_logs.form.select_type') }}</option>
                     @foreach($availableTypes as $typeEnum)
                         <option value="{{ $typeEnum->value }}">{{ $typeEnum->getLabel() }}</option>
                     @endforeach
@@ -130,12 +130,12 @@
             {{-- Description --}}
             <div>
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Deskripsi
+                    {{ __('credits.credit_logs.form.description') }}
                 </label>
                 <textarea
                     wire:model="description"
                     rows="3"
-                    placeholder="Opsional: Keterangan tambahan tentang transaksi ini..."
+                    placeholder="{{ __('credits.credit_logs.form.description_placeholder') }}"
                     class="block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm"
                 ></textarea>
                 @error('description')
@@ -146,10 +146,10 @@
             {{-- Preview --}}
             @if($selectedUser && $amount != 0)
                 <div class="p-4 rounded-lg {{ $amount > 0 ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800' }}">
-                    <h4 class="font-medium {{ $amount > 0 ? 'text-green-800 dark:text-green-300' : 'text-red-800 dark:text-red-300' }} mb-2">Preview Perubahan</h4>
+                    <h4 class="font-medium {{ $amount > 0 ? 'text-green-800 dark:text-green-300' : 'text-red-800 dark:text-red-300' }} mb-2">{{ __('credits.credit_logs.form.preview_title') }}</h4>
                     <div class="flex items-center gap-4 text-sm">
                         <div class="text-slate-600 dark:text-slate-400">
-                            Credit saat ini: <span class="font-medium">{{ number_format($selectedUser->credit, 2) }}</span>
+                            {{ __('credits.credit_logs.form.credit_before') }} <span class="font-medium">{{ number_format($selectedUser->credit, 2) }}</span>
                         </div>
                         <div class="{{ $amount > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                             {{ $amount > 0 ? '+' : '' }}{{ number_format($amount, 2) }}
@@ -160,7 +160,7 @@
                     </div>
                     @if($amount < 0 && abs($amount) > $selectedUser->credit)
                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">
-                            ⚠️ Peringatan: Credit user tidak mencukupi untuk pengurangan ini.
+                            ⚠️ {{ __('credits.credit_logs.form.insufficient_warning') }}
                         </p>
                     @endif
                 </div>
@@ -171,10 +171,10 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button type="button" wire:click="$dispatch('closeModal')" class="inline-flex items-center px-4 py-2 border border-slate-300 dark:border-dark-border text-sm font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-elevated hover:bg-slate-50 dark:hover:bg-dark-soft focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-            Batal
+            {{ __('common.actions.cancel') }}
         </button>
         <button type="button" wire:click="save" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-            Simpan
+            {{ __('common.actions.save') }}
         </button>
     </div>
 </div>

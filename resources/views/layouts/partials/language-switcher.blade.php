@@ -11,7 +11,7 @@
         aria-label="Select Language">
 
         <!-- Current Language Flag -->
-        <span class="text-base">{{ $currentLanguage['flag'] ?? '�' }}</span>
+        <span class="text-base"><img src="https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/{{ $currentLanguage['flag'] }}.svg" alt="{{ $currentLanguage['native_name'] }}" class="w-6 h-6"></span>
         <span class="text-sm font-medium uppercase hidden sm:inline">{{ $currentLocale }}</span>
 
         <svg class="w-3.5 h-3.5 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
             @foreach($languages as $locale => $lang)
             <a href="{{ route('language.switch', $locale) }}" 
                 class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors {{ $currentLocale === $locale ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : 'text-slate-700 dark:text-slate-200' }}">
-                <span class="text-lg">{{ $lang['flag'] }}</span>
+                <span class="text-lg"><img src="https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/{{ $lang['flag'] }}.svg" alt="{{ $lang['native_name'] }}" class="w-6 h-6"></span>
                 <span class="font-medium">{{ $lang['native_name'] }}</span>
                 @if($currentLocale === $locale)
                 <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -2,15 +2,15 @@
     <!-- Stats -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Total Commissions</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('referrals.stats.total_commissions') }}</p>
             <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">Rp {{ number_format($stats['total'], 0, ',', '.') }}</p>
         </div>
         <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Pending</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('common.status.pending') }}</p>
             <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400 mt-1">Rp {{ number_format($stats['pending'], 0, ',', '.') }}</p>
         </div>
         <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Available</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('referrals.stats.available') }}</p>
             <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">Rp {{ number_format($stats['available'], 0, ',', '.') }}</p>
         </div>
     </div>
@@ -18,15 +18,15 @@
     <!-- Table -->
     <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border overflow-hidden">
         <div class="px-5 py-4 border-b border-slate-200 dark:border-dark-border flex flex-wrap items-center justify-between gap-4">
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Commissions</h3>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('referrals.commissions.title') }}</h3>
             <div class="flex items-center gap-3">
                 <select wire:model.live="statusFilter" class="bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-3 py-2 text-sm">
-                    <option value="">All Status</option>
+                    <option value="">{{ __('referrals.commissions.all_status') }}</option>
                     @foreach($statuses as $status)
                     <option value="{{ $status }}">{{ ucfirst($status) }}</option>
                     @endforeach
                 </select>
-                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search..." 
+                <input type="text" wire:model.live.debounce.300ms="search" placeholder="{{ __('common.form.search_placeholder') }}" 
                        class="w-64 bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-3 py-2 text-sm">
             </div>
         </div>
@@ -36,12 +36,12 @@
             <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                 <thead class="bg-slate-50 dark:bg-dark-soft">
                     <tr>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Referrer</th>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Referred</th>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Amount</th>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Status</th>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Date</th>
-                        <th class="px-5 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Actions</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('referrals.commissions.referrer') }}</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('referrals.commissions.referred') }}</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('common.table.amount') }}</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('common.table.status') }}</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('common.table.date') }}</th>
+                        <th class="px-5 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('common.table.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 dark:divide-dark-border">
@@ -73,7 +73,7 @@
                             @if($commission->status === 'pending')
                             <button wire:click="updateStatus({{ $commission->id }}, 'available')" 
                                     class="text-green-600 hover:text-green-700 text-sm font-medium">
-                                Approve
+                                {{ __('referrals.commissions.approve') }}
                             </button>
                             @endif
                         </td>
@@ -87,7 +87,7 @@
         </div>
         @else
         <div class="p-8 text-center">
-            <p class="text-slate-500 dark:text-slate-400">No commissions found.</p>
+            <p class="text-slate-500 dark:text-slate-400">{{ __('referrals.commissions.empty') }}</p>
         </div>
         @endif
     </div>

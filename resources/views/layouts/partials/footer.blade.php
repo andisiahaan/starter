@@ -50,7 +50,7 @@
             <!-- Services -->
             <div>
                 <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider">
-                    Services
+                    {{ __('common.nav.services') }}
                 </h3>
                 <ul class="mt-4 space-y-3">
                     <li>
@@ -79,17 +79,17 @@
             <!-- Support -->
             <div>
                 <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider">
-                    Company
+                    {{ __('common.nav.company') }}
                 </h3>
                 <ul class="mt-4 space-y-3">
                     <li>
                         <a href="{{ route('page.show', 'about') }}" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            About Us
+                            {{ __('common.nav.about_us') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('page.show', 'contact') }}" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            Contact Us
+                            {{ __('common.nav.contact_us') }}
                         </a>
                     </li>
                     <li>
@@ -99,7 +99,7 @@
                     </li>
                     <li>
                         <a href="#" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            Help Center
+                            {{ __('common.nav.help_center') }}
                         </a>
                     </li>
                 </ul>
@@ -108,27 +108,27 @@
             <!-- Legal -->
             <div>
                 <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider">
-                    Legal
+                    {{ __('common.nav.legal') }}
                 </h3>
                 <ul class="mt-4 space-y-3">
                     <li>
                         <a href="{{ route('page.show', 'privacy-policy') }}" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            Privacy Policy
+                            {{ __('common.nav.privacy_policy') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('page.show', 'terms-of-service') }}" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            Terms of Service
+                            {{ __('common.nav.terms_of_service') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('page.show', 'refund-policy') }}" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            Refund Policy
+                            {{ __('common.nav.refund_policy') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('page.show', 'disclaimer') }}" class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                            Disclaimer
+                            {{ __('common.nav.disclaimer') }}
                         </a>
                     </li>
                 </ul>
@@ -140,18 +140,18 @@
             <div class="md:flex md:items-center md:justify-between">
                 <div class="max-w-md">
                     <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
-                        Subscribe to our newsletter
+                        {{ __('common.footer.subscribe_title') }}
                     </h3>
                     <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                        Get the latest updates and promotions directly in your inbox.
+                        {{ __('common.footer.subscribe_desc') }}
                     </p>
                 </div>
                 <form class="mt-4 md:mt-0 flex gap-2">
                     <input type="email"
-                        placeholder="Enter your email"
+                        placeholder="{{ __('common.footer.email_placeholder') }}"
                         class="flex-1 min-w-0 px-4 py-2.5 text-sm bg-white dark:bg-dark-elevated border border-slate-300 dark:border-dark-border rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                     <button type="submit" class="btn btn-primary whitespace-nowrap">
-                        Subscribe
+                        {{ __('common.footer.subscribe') }}
                     </button>
                 </form>
             </div>
@@ -163,15 +163,15 @@
         <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
             <div class="md:flex md:items-center md:justify-between text-center md:text-left">
                 <p class="text-sm text-slate-500 dark:text-slate-400">
-                    &copy; {{ date('Y') }} {{ setting('main.name', config('app.name')) }}. All rights reserved.
+                    &copy; {{ date('Y') }} {{ setting('main.name', config('app.name')) }}. {{ __('common.footer.rights') }}
                 </p>
                 <div class="mt-2 md:mt-0 flex items-center justify-center md:justify-end gap-4">
                     <a href="#" class="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
-                        Status
+                        {{ __('common.footer.status') }}
                     </a>
                     <span class="text-slate-300 dark:text-slate-600">|</span>
                     <a href="#" class="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
-                        Sitemap
+                        {{ __('common.footer.sitemap') }}
                     </a>
                 </div>
             </div>

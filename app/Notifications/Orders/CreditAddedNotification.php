@@ -19,11 +19,6 @@ class CreditAddedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Send notification after database commit.
-     */
-    public $afterCommit = true;
-
     protected NotificationType $type;
 
     /**
@@ -34,6 +29,7 @@ class CreditAddedNotification extends Notification implements ShouldQueue
         public float $creditAmount
     ) {
         $this->type = NotificationType::CREDIT_ADDED;
+        $this->afterCommit();
     }
 
     /**

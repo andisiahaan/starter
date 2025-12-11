@@ -35,6 +35,8 @@ class CustomTags extends Component
             'main_body_tags' => '',
             'plain_head_tags' => '',
             'plain_body_tags' => '',
+            'blog_head_tags' => '',
+            'blog_body_tags' => '',
         ];
     }
 
@@ -52,6 +54,10 @@ class CustomTags extends Component
             'plain' => [
                 'name' => 'Plain Layout',
                 'description' => 'Minimal layout for auth pages (login, register)',
+            ],
+            'blog' => [
+                'name' => 'Blog Layout',
+                'description' => 'Blog pages',
             ],
         ];
     }

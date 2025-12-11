@@ -5,11 +5,49 @@ return [
     // GENERAL
     // ==========================================
     'title' => 'Notifications',
-    'description' => 'Manage your notification preferences.',
-    'mark_all_read' => 'Mark all as read',
+    'description' => 'Stay updated with your latest notifications and alerts.',
+    'mark_all_read' => 'Mark All as Read',
     'clear_all' => 'Clear all',
     'no_notifications' => 'No notifications',
     'view_all' => 'View all notifications',
+
+    // ==========================================
+    // INDEX PAGE
+    // ==========================================
+    'filter_all' => 'All',
+    'filter_unread' => 'Unread',
+    'filter_read' => 'Read',
+    'mark_read' => 'Mark as Read',
+    'mark_unread' => 'Mark as Unread',
+    'delete' => 'Delete',
+    'delete_all_read' => 'Delete All Read',
+    'view' => 'View',
+    'select_all' => 'Select All',
+    'new' => 'New',
+    'selected_count' => ':count selected',
+    
+    // Confirmations
+    'confirm_delete' => 'Are you sure you want to delete this notification?',
+    'confirm_delete_selected' => 'Are you sure you want to delete the selected notifications?',
+    'confirm_delete_all_read' => 'Are you sure you want to delete all read notifications?',
+    
+    // Toast Messages
+    'marked_as_read' => 'Notification marked as read.',
+    'marked_as_unread' => 'Notification marked as unread.',
+    'bulk_marked_read' => ':count notifications marked as read.',
+    'bulk_marked_unread' => ':count notifications marked as unread.',
+    'all_marked_read' => 'All notifications marked as read.',
+    'deleted' => 'Notification deleted.',
+    'bulk_deleted' => ':count notifications deleted.',
+    'all_read_deleted' => ':count read notifications deleted.',
+    
+    // Empty States
+    'empty_title' => 'No Notifications',
+    'empty_description' => "You're all caught up! We'll notify you when there's something new.",
+    'empty_unread_title' => 'No Unread Notifications',
+    'empty_unread_description' => "You've read all your notifications. Great job staying on top of things!",
+    'empty_read_title' => 'No Read Notifications',
+    'empty_read_description' => "You haven't read any notifications yet, or they've been deleted.",
 
     // ==========================================
     // PREFERENCES
@@ -27,6 +65,8 @@ return [
             'database' => 'In-App',
             'database_description' => 'Show notifications in the app',
         ],
+        
+        'types_title' => 'Notification Types',
     ],
 
     // ==========================================

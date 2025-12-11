@@ -3,18 +3,17 @@
 namespace App\Livewire\App\Orders;
 
 use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class Show extends Component
 {
     public Order $order;
 
-    public function mount($order)
+    public function mount(Order $order): void
     {
-        $this->order = Order::where('id', $order)
-            ->where('user_id', Auth::id())
-            ->firstOrFail();
+        Gate::authorize('view', $order);
+        $this->order = $order;
     }
 
     public function checkPaymentStatus()

@@ -5,7 +5,7 @@
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            Back to Blog
+            {{ __('blog.back_to_blog') }}
         </a>
 
         <!-- Header -->
@@ -28,9 +28,9 @@
                 <span>•</span>
                 <span>{{ $post->published_at->format('F d, Y') }}</span>
                 <span>•</span>
-                <span>{{ $post->reading_time }} min read</span>
+                <span>{{ __('blog.public.reading_time', ['count' => $post->reading_time]) }}</span>
                 <span>•</span>
-                <span>{{ number_format($post->views_count) }} views</span>
+                <span>{{ __('blog.public.views', ['count' => number_format($post->views_count)]) }}</span>
             </div>
         </header>
 
@@ -50,7 +50,7 @@
         @if($post->tags->isNotEmpty())
         <div class="mt-10 pt-8 border-t border-slate-200 dark:border-dark-border">
             <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-sm text-slate-500 dark:text-slate-400">Tags:</span>
+                <span class="text-sm text-slate-500 dark:text-slate-400">{{ __('blog.public.tags') }}:</span>
                 @foreach($post->tags as $tag)
                 <a href="{{ route('blog.tag', $tag->slug) }}" class="px-3 py-1 text-sm bg-slate-100 dark:bg-dark-soft text-slate-600 dark:text-slate-400 rounded-full hover:bg-primary-100 hover:text-primary-700 dark:hover:bg-primary-900/30 dark:hover:text-primary-400 transition">
                     #{{ $tag->name }}
@@ -63,7 +63,7 @@
         <!-- Share -->
         <div class="mt-8 pt-8 border-t border-slate-200 dark:border-dark-border">
             <div class="flex items-center gap-4">
-                <span class="text-sm text-slate-500 dark:text-slate-400">Share:</span>
+                <span class="text-sm text-slate-500 dark:text-slate-400">{{ __('blog.public.share') }}:</span>
                 <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" class="p-2 bg-slate-100 dark:bg-dark-soft rounded-full hover:bg-primary-100 dark:hover:bg-primary-900/30 transition">
                     <svg class="w-5 h-5 text-slate-600 dark:text-slate-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
@@ -87,7 +87,7 @@
     @if($relatedPosts->isNotEmpty())
     <section class="bg-slate-50 dark:bg-dark-soft py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Related Posts</h2>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">{{ __('blog.related_posts') }}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($relatedPosts as $related)
                 <a href="{{ route('blog.show', $related->slug) }}" class="group block bg-white dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg transition">

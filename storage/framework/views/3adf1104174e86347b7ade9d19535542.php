@@ -2,7 +2,7 @@
     
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
-            <?php echo e($userId ? __('Edit User') : __('Create User')); ?>
+            <?php echo e($userId ? __('admin.users.modals.edit.title') : __('admin.users.modals.create.title')); ?>
 
         </h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
@@ -16,7 +16,7 @@
     <div class="p-5">
         <form wire:submit="save" class="space-y-4">
             <div>
-                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('admin.users.modals.create.name')); ?></label>
                 <input type="text" id="name" wire:model="name" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -28,7 +28,7 @@ endif;
 unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </div>
             <div>
-                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
+                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('admin.users.modals.create.email')); ?></label>
                 <input type="email" id="email" wire:model="email" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -41,7 +41,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
             </div>
             <div>
                 <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Password <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($userId): ?> <span class="text-slate-400">(leave blank to keep current)</span> <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <?php echo e(__('admin.users.modals.create.password')); ?> <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($userId): ?> <span class="text-slate-400"><?php echo e(__('admin.users.modals.create.password_hint')); ?></span> <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                 </label>
                 <input type="password" id="password" wire:model="password" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['password'];
@@ -54,11 +54,11 @@ endif;
 unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </div>
             <div>
-                <label for="password_confirmation" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Confirm Password</label>
+                <label for="password_confirmation" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('admin.users.modals.create.password_confirm')); ?></label>
                 <input type="password" id="password_confirmation" wire:model="password_confirmation" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
             </div>
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Roles</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><?php echo e(__('admin.users.modals.create.roles')); ?></label>
                 <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto p-3 bg-slate-50 dark:bg-dark-soft rounded-md border border-slate-200 dark:border-dark-border">
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
                     <label class="flex items-center gap-2">
@@ -74,13 +74,13 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
     
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            <?php echo e(__('admin.users.modals.create.cancel')); ?>
+
         </button>
         <button wire:click="save" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="save"><?php echo e($userId ? 'Update' : 'Create'); ?></span>
-            <span wire:loading wire:target="save">Saving...</span>
+            <span wire:loading.remove wire:target="save"><?php echo e($userId ? __('admin.users.modals.create.update') : __('admin.users.modals.create.create')); ?></span>
+            <span wire:loading wire:target="save"><?php echo e(__('admin.users.modals.create.saving')); ?></span>
         </button>
     </div>
 </div>
-
 <?php /**PATH D:\Installed\Apps\laragon\www\starter\resources\views/admin/livewire/users/modals/create-edit-user-modal.blade.php ENDPATH**/ ?>

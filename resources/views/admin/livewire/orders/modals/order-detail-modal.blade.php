@@ -15,11 +15,11 @@
         {{-- Order Info --}}
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Order Number</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.orders.table.order_id') }}</p>
                 <p class="font-medium text-slate-900 dark:text-white">{{ $order->order_number }}</p>
             </div>
             <div>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Status</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('common.table.status') }}</p>
                 <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
                     @if($order->status === 'verified') bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400
                     @elseif($order->status === 'pending') bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400
@@ -29,11 +29,11 @@
                 </span>
             </div>
             <div>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Created At</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('common.table.created_at') }}</p>
                 <p class="font-medium text-slate-900 dark:text-white">{{ $order->created_at->format('M d, Y H:i') }}</p>
             </div>
             <div>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Verified At</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('common.verified_at') }}</p>
                 <p class="font-medium text-slate-900 dark:text-white">{{ $order->verified_at?->format('M d, Y H:i') ?? '-' }}</p>
             </div>
         </div>
@@ -42,14 +42,14 @@
 
         {{-- Customer --}}
         <div>
-            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Customer</h4>
+            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">{{ __('credits.orders.table.customer') }}</h4>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Name</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('common.table.name') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ $order->user?->name ?? 'N/A' }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Email</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('common.table.email') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ $order->user?->email ?? 'N/A' }}</p>
                 </div>
             </div>
@@ -59,14 +59,14 @@
 
         {{-- Product --}}
         <div>
-            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Product</h4>
+            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">{{ __('credits.orders.table.product') }}</h4>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Product Name</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.products.form.name') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ $order->product_name }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Credits</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.credits') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ number_format($order->credit_amount, 0, ',', '.') }}</p>
                 </div>
             </div>
@@ -76,28 +76,28 @@
 
         {{-- Payment --}}
         <div>
-            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Payment</h4>
+            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">{{ __('credits.orders.detail.payment_info') }}</h4>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Method</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.orders.detail.payment_method') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ $order->paymentMethod?->name ?? $order->payment_method_code }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Reference</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.credit_logs.detail.reference') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white font-mono text-sm">{{ $order->payment_reference ?? '-' }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Subtotal</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.user.purchase.subtotal') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">Rp {{ number_format($order->subtotal, 0, ',', '.') }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Fee</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.user.purchase.payment_fee') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">Rp {{ number_format($order->fee_amount, 0, ',', '.') }}</p>
                 </div>
             </div>
             <div class="mt-3 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Total Amount</span>
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('credits.user.purchase.total') }}</span>
                     <span class="text-lg font-bold text-primary-600 dark:text-primary-400">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
                 </div>
             </div>
@@ -106,7 +106,7 @@
         @if($order->notes)
         <hr class="border-slate-200 dark:border-dark-border">
         <div>
-            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Notes</h4>
+            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">{{ __('credits.orders.detail.notes') }}</h4>
             <pre class="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap font-sans bg-slate-50 dark:bg-dark-soft p-3 rounded-lg">{{ $order->notes }}</pre>
         </div>
         @endif
@@ -116,7 +116,7 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Close
+            {{ __('common.actions.close') }}
         </button>
     </div>
 </div>

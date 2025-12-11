@@ -15,11 +15,11 @@ class AdminTicketCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $afterCommit = true;
-
     public function __construct(
         protected Ticket $ticket
-    ) {}
+    ) {
+        $this->afterCommit();
+    }
 
     public function via(object $notifiable): array
     {

@@ -16,18 +16,18 @@
         <form wire:submit="save" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2 sm:col-span-1">
-                    <label for="title" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Title</label>
+                    <label for="title" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('common.table.name') }}</label>
                     <input type="text" id="title" wire:model="title" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('title') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-span-2 sm:col-span-1">
-                    <label for="slug" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Slug</label>
+                    <label for="slug" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('blog.posts.slug') }}</label>
                     <input type="text" id="slug" wire:model="slug" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('slug') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div>
-                <label for="type" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Type</label>
+                <label for="type" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('common.table.type') }}</label>
                 <select wire:model="type" id="type" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @foreach($types as $key => $label)
                     <option value="{{ $key }}">{{ $label }}</option>
@@ -36,18 +36,18 @@
                 @error('type') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label for="content" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Content</label>
+                <label for="content" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('news.form.content') }}</label>
                 <textarea wire:model="content" id="content" rows="6" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm"></textarea>
                 @error('content') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label for="published_at" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Publish At</label>
+                    <label for="published_at" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('news.form.publish_at') }}</label>
                     <input type="datetime-local" id="published_at" wire:model="published_at" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('published_at') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label for="expires_at" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Expires At</label>
+                    <label for="expires_at" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('news.form.expires_at') }}</label>
                     <input type="datetime-local" id="expires_at" wire:model="expires_at" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('expires_at') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
@@ -55,11 +55,11 @@
             <div class="flex items-center gap-6">
                 <label class="flex items-center gap-2">
                     <input type="checkbox" wire:model="is_published" class="rounded border-slate-300 dark:border-dark-border text-primary-600 focus:ring-primary-500">
-                    <span class="text-sm text-slate-700 dark:text-slate-300">Published</span>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">{{ __('common.status.published') }}</span>
                 </label>
                 <label class="flex items-center gap-2">
                     <input type="checkbox" wire:model="is_pinned" class="rounded border-slate-300 dark:border-dark-border text-primary-600 focus:ring-primary-500">
-                    <span class="text-sm text-slate-700 dark:text-slate-300">Pinned</span>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">{{ __('news.form.pinned') }}</span>
                 </label>
             </div>
         </form>
@@ -68,7 +68,7 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            {{ __('common.actions.cancel') }}
         </button>
         <button wire:click="save" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 transition" wire:loading.attr="disabled">
             <span wire:loading.remove wire:target="save">{{ $newsId ? __('admin.news.modals.create.update') : __('admin.news.modals.create.create') }}</span>

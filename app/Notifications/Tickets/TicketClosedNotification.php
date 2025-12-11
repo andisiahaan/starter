@@ -17,14 +17,13 @@ class TicketClosedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $afterCommit = true;
-
     protected NotificationType $type;
 
     public function __construct(
         protected Ticket $ticket
     ) {
         $this->type = NotificationType::TICKET_CLOSED;
+        $this->afterCommit();
     }
 
     /**

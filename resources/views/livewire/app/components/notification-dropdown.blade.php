@@ -168,7 +168,8 @@
                 {{-- Footer --}}
                 @if(count($notifications) > 0)
                     <div class="shrink-0 px-4 sm:px-6 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft/50">
-                        <a href="#" 
+                        <a href="{{ route('app.notifications.index') }}" 
+                           wire:navigate
                            @click="close()"
                            class="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">
                             <span>{{ __('account.notifications_dropdown.view_all') }}</span>

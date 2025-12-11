@@ -29,4 +29,11 @@ return [
         'published' => 'Published :date',
         'by' => 'By :author',
     ],
+    
+    'form' => [
+        'content' => 'Content',
+        'publish_at' => 'Publish At',
+        'expires_at' => 'Expires At',
+        'pinned' => 'Pinned',
+    ],
 ];

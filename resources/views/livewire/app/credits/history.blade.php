@@ -29,7 +29,13 @@
     <!-- History List -->
     <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-gray-200 dark:border-dark-border overflow-hidden">
         @forelse($logs as $log)
-        <div class="flex items-center justify-between p-4 border-b border-gray-100 dark:border-dark-border last:border-b-0 hover:bg-gray-50 dark:hover:bg-dark-soft transition-colors">
+        @php
+            $hasOrderLink = $log->reference_type === 'App\\Models\\Order' && $log->reference_id;
+            $linkHref = $hasOrderLink ? route('app.orders.show', $log->reference_id) : null;
+        @endphp
+        <a href="{{ $linkHref ?? '#' }}" 
+           @if(!$hasOrderLink) onclick="event.preventDefault()" @endif
+           class="flex items-center justify-between p-4 border-b border-gray-100 dark:border-dark-border last:border-b-0 hover:bg-gray-50 dark:hover:bg-dark-soft transition-colors {{ $hasOrderLink ? 'cursor-pointer' : 'cursor-default' }}">
             <div class="flex items-center gap-4">
                 <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center {{ $log->amount >= 0 ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30' }}">
                     @if($log->amount >= 0)
@@ -43,7 +49,14 @@
                     @endif
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $log->description ?? $types[$log->type] ?? $log->type }}</p>
+                    <div class="flex items-center gap-2">
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $log->description ?? $types[$log->type] ?? $log->type }}</p>
+                        @if($hasOrderLink)
+                        <svg class="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                        @endif
+                    </div>
                     <p class="text-xs text-gray-500 dark:text-gray-400">{{ $log->created_at->format('M d, Y H:i') }}</p>
                 </div>
             </div>
@@ -53,7 +66,7 @@
                 </p>
                 <p class="text-xs text-gray-400">{{ __('credits.user.history.balance_after', ['amount' => number_format($log->balance_after, 0, ',', '.')]) }}</p>
             </div>
-        </div>
+        </a>
         @empty
         <div class="p-8 text-center">
             <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

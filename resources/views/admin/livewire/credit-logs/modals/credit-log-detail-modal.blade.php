@@ -48,10 +48,10 @@
         <hr class="border-slate-200 dark:border-dark-border">
 
         <div>
-            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Credit Change</h4>
+            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">{{ __('credits.credit_logs.detail.credit_change') }}</h4>
             <div class="grid grid-cols-3 gap-4">
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Before</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.credit_logs.detail.before') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ number_format($log->balance_before, 0, ',', '.') }}</p>
                 </div>
                 <div>
@@ -61,7 +61,7 @@
                     </p>
                 </div>
                 <div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">After</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('credits.credit_logs.detail.after') }}</p>
                     <p class="font-medium text-slate-900 dark:text-white">{{ number_format($log->balance_after, 0, ',', '.') }}</p>
                 </div>
             </div>
@@ -78,7 +78,7 @@
         @if($log->meta && count($log->meta) > 0)
         <hr class="border-slate-200 dark:border-dark-border">
         <div>
-            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Additional Info</h4>
+            <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">{{ __('credits.credit_logs.detail.additional_info') }}</h4>
             <pre class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-dark-soft p-3 rounded-lg overflow-x-auto">{{ json_encode($log->meta, JSON_PRETTY_PRINT) }}</pre>
         </div>
         @endif
@@ -88,7 +88,7 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Close
+            {{ __('common.actions.close') }}
         </button>
     </div>
 </div>

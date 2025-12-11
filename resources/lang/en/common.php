@@ -48,7 +48,20 @@ return [
         'processing' => 'Processing...',
         'learn_more' => 'Learn more',
         'read_more' => 'Read more',
+        'enable_all' => 'Enable all',
+        'disable_all' => 'Disable all',
     ],
+    
+    // Common Labels
+    'required' => 'Required',
+    'security' => 'Security',
+    'none' => 'None',
+    'verified_at' => 'Verified At',
+    'current_status' => 'Current Status',
+    'new_status' => 'New Status',
+    'note_optional' => 'Note (optional)',
+    'note_placeholder' => 'Add a note...',
+    'processing' => 'Processing...',
 
     // ==========================================
     // STATUS
@@ -199,5 +212,50 @@ return [
         'activity_log' => 'Activity Log',
         'billing' => 'Billing',
         'search' => 'Search...',
+        
+        // Public navigation
+        'services' => 'Services',
+        'view_all_services' => 'View all services',
+        'pricing' => 'Pricing',
+        'about' => 'About',
+        'contact' => 'Contact',
+        
+        // Sidebar menu items
+        'credits' => 'Credits',
+        'my_orders' => 'My Orders',
+        'support' => 'Support',
+        'support_tickets' => 'Support Tickets',
+        'news_updates' => 'News & Updates',
+        'referral' => 'Referral',
+        'referral_program' => 'Referral Program',
+        'developer' => 'Developer',
+        'api_tokens' => 'API Tokens',
+        'api_docs' => 'API Documentation',
+        'administration' => 'Administration',
+        'admin_panel' => 'Admin Panel',
+        
+        // Footer links
+        'company' => 'Company',
+        'about_us' => 'About Us',
+        'contact_us' => 'Contact Us',
+        'help_center' => 'Help Center',
+        'legal' => 'Legal',
+        'privacy_policy' => 'Privacy Policy',
+        'terms_of_service' => 'Terms of Service',
+        'refund_policy' => 'Refund Policy',
+        'disclaimer' => 'Disclaimer',
+    ],
+    
+    // ==========================================
+    // FOOTER
+    // ==========================================
+    'footer' => [
+        'subscribe_title' => 'Subscribe to our newsletter',
+        'subscribe_desc' => 'Get the latest updates and promotions directly in your inbox.',
+        'email_placeholder' => 'Enter your email',
+        'subscribe' => 'Subscribe',
+        'rights' => 'All rights reserved.',
+        'status' => 'Status',
+        'sitemap' => 'Sitemap',
     ],
 ];

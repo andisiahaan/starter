@@ -15,11 +15,11 @@ class AdminOrderCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $afterCommit = true;
-
     public function __construct(
         protected Order $order
-    ) {}
+    ) {
+        $this->afterCommit();
+    }
 
     public function via(object $notifiable): array
     {

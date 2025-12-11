@@ -1,13 +1,13 @@
 <div class="p-6 space-y-8">
     {{-- Section Header --}}
     <div class="border-b border-slate-200 dark:border-dark-border pb-4">
-        <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Notification Preferences</h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Choose how you want to receive notifications.</p>
+        <h2 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('notifications.preferences.title') }}</h2>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('notifications.preferences.description') }}</p>
     </div>
 
     {{-- Channels Section --}}
     <div class="space-y-4">
-        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider">Notification Channels</h3>
+        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider">{{ __('notifications.preferences.channels.title') }}</h3>
         
         <div class="grid gap-4 sm:grid-cols-3">
             @foreach($channels as $channel)
@@ -34,7 +34,7 @@
                         </div>
                         
                         @if($channel->isRequired())
-                            <span class="px-2 py-1 text-xs font-medium text-primary-700 dark:text-primary-300 bg-primary-200 dark:bg-primary-800/50 rounded">Required</span>
+                            <span class="px-2 py-1 text-xs font-medium text-primary-700 dark:text-primary-300 bg-primary-200 dark:bg-primary-800/50 rounded">{{ __('common.required') }}</span>
                         @elseif($isPush)
                             {{-- Push channel: Toggle + Manage button --}}
                             <div class="flex items-center gap-2">
@@ -70,7 +70,7 @@
 
     {{-- Notification Types --}}
     <div class="space-y-4">
-        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider">Notification Types</h3>
+        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider">{{ __('notifications.preferences.types_title') }}</h3>
         
         <div class="space-y-4">
             @foreach($categorizedTypes as $category)
@@ -86,9 +86,9 @@
                         <span class="font-medium text-slate-900 dark:text-white">{{ $category['label'] ?? 'Unknown' }}</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button wire:click="enableCategory('{{ $category['key'] ?? '' }}')" class="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">Enable all</button>
+                        <button wire:click="enableCategory('{{ $category['key'] ?? '' }}')" class="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">{{ __('common.actions.enable_all') }}</button>
                         <span class="text-slate-300 dark:text-dark-border">|</span>
-                        <button wire:click="disableCategory('{{ $category['key'] ?? '' }}')" class="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">Disable all</button>
+                        <button wire:click="disableCategory('{{ $category['key'] ?? '' }}')" class="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">{{ __('common.actions.disable_all') }}</button>
                     </div>
                 </div>
                 
@@ -102,7 +102,7 @@
                             <div class="flex items-center gap-2">
                                 <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ $type['label'] ?? 'Unknown' }}</p>
                                 @if($type['isSecurityCritical'] ?? false)
-                                    <span class="px-1.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">Security</span>
+                                    <span class="px-1.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">{{ __('common.security') }}</span>
                                 @endif
                             </div>
                             <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{{ $type['description'] ?? '' }}</p>

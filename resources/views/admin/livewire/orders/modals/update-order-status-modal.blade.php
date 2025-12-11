@@ -14,11 +14,11 @@
         @if($order)
         <div class="mb-4 p-3 bg-slate-50 dark:bg-dark-soft rounded-lg border border-slate-200 dark:border-dark-border">
             <div class="flex justify-between items-center">
-                <span class="text-sm text-slate-600 dark:text-slate-400">Order</span>
+                <span class="text-sm text-slate-600 dark:text-slate-400">{{ __('credits.orders.table.order_id') }}</span>
                 <span class="font-medium text-slate-900 dark:text-white font-mono">{{ $order->order_number }}</span>
             </div>
             <div class="flex justify-between items-center mt-1">
-                <span class="text-sm text-slate-600 dark:text-slate-400">Current Status</span>
+                <span class="text-sm text-slate-600 dark:text-slate-400">{{ __('common.current_status') }}</span>
                 <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full
                     @if($order->status === 'verified') bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400
                     @elseif($order->status === 'pending') bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400
@@ -31,7 +31,7 @@
 
         <form wire:submit="updateStatus" class="space-y-4">
             <div>
-                <label for="newStatus" class="block text-sm font-medium text-slate-700 dark:text-slate-300">New Status</label>
+                <label for="newStatus" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('common.new_status') }}</label>
                 <select wire:model="newStatus" id="newStatus" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @foreach($statuses as $key => $label)
                     <option value="{{ $key }}">{{ $label }}</option>
@@ -40,8 +40,8 @@
                 @error('newStatus') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label for="statusNote" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Note (optional)</label>
-                <textarea wire:model="statusNote" id="statusNote" rows="3" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm" placeholder="Add a note about this status change..."></textarea>
+                <label for="statusNote" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('common.note_optional') }}</label>
+                <textarea wire:model="statusNote" id="statusNote" rows="3" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm" placeholder="{{ __('common.note_placeholder') }}"></textarea>
             </div>
         </form>
         @endif
@@ -50,11 +50,11 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            {{ __('common.actions.cancel') }}
         </button>
         <button wire:click="updateStatus" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="updateStatus">Update Status</span>
-            <span wire:loading wire:target="updateStatus">Updating...</span>
+            <span wire:loading.remove wire:target="updateStatus">{{ __('credits.orders.actions.update_status') }}</span>
+            <span wire:loading wire:target="updateStatus">{{ __('common.processing') }}</span>
         </button>
     </div>
 </div>

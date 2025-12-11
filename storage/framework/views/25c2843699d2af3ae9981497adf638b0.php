@@ -1,6 +1,6 @@
 <?php if (isset($component)) { $__componentOriginal58d4f08fcba9bdce9e2c67f691ab9981 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal58d4f08fcba9bdce9e2c67f691ab9981 = $attributes; } ?>
-<?php $component = App\View\Components\Layouts\Main::resolve(['title' => 'Blog'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = App\View\Components\Layouts\Main::resolve(['title' => __('blog.title')] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('layouts.main'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -13,14 +13,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Header -->
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Blog</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Temukan artikel, tips, dan insights terbaru dari tim kami</p>
+            <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-4"><?php echo e(__('blog.title')); ?></h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"><?php echo e(__('blog.subtitle')); ?></p>
         </div>
 
         <!-- Featured Posts -->
         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($featuredPosts->isNotEmpty()): ?>
         <div class="mb-16">
-            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Featured Posts</h2>
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6"><?php echo e(__('blog.featured_posts')); ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $featuredPosts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
                 <a href="<?php echo e(route('blog.show', $post->slug)); ?>" class="group block bg-white dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg transition">
@@ -55,9 +55,9 @@
             <!-- Main Content -->
             <div class="lg:col-span-3">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Latest Posts</h2>
+                    <h2 class="text-xl font-semibold text-slate-900 dark:text-white"><?php echo e(__('blog.latest_posts')); ?></h2>
                     <form action="<?php echo e(route('blog.index')); ?>" method="GET" class="relative">
-                        <input type="text" name="search" value="<?php echo e(request('search')); ?>" placeholder="Search..." class="pl-10 pr-4 py-2 rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 text-sm">
+                        <input type="text" name="search" value="<?php echo e(request('search')); ?>" placeholder="<?php echo e(__('blog.public.search')); ?>" class="pl-10 pr-4 py-2 rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 text-sm">
                         <svg class="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -75,7 +75,7 @@
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($post->primary_category): ?>
                                 <span class="px-2 py-0.5 text-xs font-medium bg-slate-100 dark:bg-dark-soft text-slate-600 dark:text-slate-400 rounded"><?php echo e($post->primary_category->name); ?></span>
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-                                <span class="text-xs text-slate-500 dark:text-slate-400"><?php echo e($post->reading_time); ?> min read</span>
+                                <span class="text-xs text-slate-500 dark:text-slate-400"><?php echo e(__('blog.public.reading_time', ['count' => $post->reading_time])); ?></span>
                             </div>
                             <h3 class="font-semibold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition line-clamp-2"><?php echo e($post->title); ?></h3>
                             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($post->excerpt): ?>
@@ -93,7 +93,7 @@
                         <svg class="w-16 h-16 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                         </svg>
-                        <p class="text-slate-500 dark:text-slate-400">Belum ada artikel ditemukan.</p>
+                        <p class="text-slate-500 dark:text-slate-400"><?php echo e(__('blog.public.no_posts')); ?></p>
                     </div>
                     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                 </div>
@@ -108,7 +108,7 @@
             <div class="space-y-6">
                 <!-- Categories -->
                 <div class="bg-white dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-dark-border p-5">
-                    <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Categories</h3>
+                    <h3 class="font-semibold text-slate-900 dark:text-white mb-4"><?php echo e(__('blog.public.categories')); ?></h3>
                     <ul class="space-y-2">
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
                         <li>
@@ -124,7 +124,7 @@
                 <!-- Tags -->
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($tags->isNotEmpty()): ?>
                 <div class="bg-white dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-dark-border p-5">
-                    <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Tags</h3>
+                    <h3 class="font-semibold text-slate-900 dark:text-white mb-4"><?php echo e(__('blog.public.tags')); ?></h3>
                     <div class="flex flex-wrap gap-2">
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
                         <a href="<?php echo e(route('blog.tag', $tag->slug)); ?>" class="px-3 py-1 text-xs bg-slate-100 dark:bg-dark-soft text-slate-600 dark:text-slate-400 rounded-full hover:bg-primary-100 hover:text-primary-700 dark:hover:bg-primary-900/30 dark:hover:text-primary-400 transition">

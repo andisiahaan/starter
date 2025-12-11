@@ -11,6 +11,39 @@ return [
     'related_posts' => 'Related Posts',
     'all_posts' => 'All Posts',
     'back_to_blog' => 'Back to Blog',
+    
+    // Full page form translations
+    'form' => [
+        'edit_post' => 'Edit Post',
+        'create_post' => 'Create New Post',
+        'edit_subtitle' => 'Update your blog post',
+        'create_subtitle' => 'Write and publish your new blog post',
+        'back_to_posts' => 'Back to Posts',
+        'title' => 'Title',
+        'title_placeholder' => 'Enter post title',
+        'excerpt' => 'Excerpt',
+        'excerpt_placeholder' => 'Brief summary of the post (optional)',
+        'excerpt_help' => 'A short description shown in post listings',
+        'content' => 'Content',
+        'content_help' => 'You can use HTML or Markdown formatting',
+        'seo_settings' => 'SEO Settings',
+        'meta_title' => 'Meta Title',
+        'meta_title_placeholder' => 'SEO title (max 70 characters)',
+        'meta_description' => 'Meta Description',
+        'meta_description_placeholder' => 'SEO description (max 160 characters)',
+        'meta_keywords' => 'Meta Keywords',
+        'meta_keywords_placeholder' => 'Comma-separated keywords',
+        'publish' => 'Publish',
+        'publish_date' => 'Publish Date',
+        'featured_post' => 'Featured Post',
+        'allow_comments' => 'Allow Comments',
+        'update_post' => 'Update Post',
+        'publish_post' => 'Publish Post',
+        'featured_image' => 'Featured Image',
+        'no_categories' => 'No categories yet.',
+        'no_tags' => 'No tags yet.',
+        'create_one' => 'Create one',
+    ],
 
     // ==========================================
     // POSTS
@@ -49,6 +82,11 @@ return [
             'content_help' => 'You can use HTML or Markdown formatting',
             'featured_image' => 'Featured Image',
         ],
+        
+        // Additional shared form labels
+        'parent_category' => 'Parent Category',
+        'order' => 'Order',
+        'slug' => 'Slug',
         
         'publish' => [
             'title' => 'Publish',

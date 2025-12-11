@@ -76,7 +76,7 @@
                     </a>
                 </div>
             </div>
-
+            
             <!-- Roles with Submenu -->
             <div x-data="{ open: {{ (request()->routeIs('admin.roles.*') || request()->routeIs('admin.permissions.*')) ? 'true' : 'false' }} }">
                 <button @click="open = !open"
@@ -89,21 +89,24 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-
+                @can('assign-roles')
                 <div x-show="open" x-collapse class="mt-1 ml-4 pl-4 border-l border-slate-200 dark:border-dark-border space-y-1">
                     <a href="{{ route('admin.roles.index') }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors {{ request()->routeIs('admin.roles.index') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5' }}">
                         {{ __('admin.roles.title') }}
                     </a>
                 </div>
+                @endcan
                 
+                @can('manage-permissions')
                 <div x-show="open" x-collapse class="mt-1 ml-4 pl-4 border-l border-slate-200 dark:border-dark-border space-y-1">
                     <a href="{{ route('admin.permissions.index') }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors {{ request()->routeIs('admin.permissions.index') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-500/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5' }}">
                         {{ __('admin.sidebar.permissions') }}
                     </a>
                 </div>
-            </div>
+                @endcan
+            </div>                 
         </div>
 
         <!-- Section: System -->
@@ -111,7 +114,8 @@
             <p class="px-3 mb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                 {{ __('admin.sidebar.system') }}
             </p>
-
+            
+            @can('manage-settings')
             <!-- Settings -->
             <a href="{{ route('admin.settings') }}"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {{ request()->routeIs('admin.settings') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-l-2 border-primary-500' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white' }}">
@@ -121,6 +125,7 @@
                 </svg>
                 {{ __('admin.sidebar.settings') }}
             </a>
+            @endcan
         </div>
 
         <!-- Section: Credit System -->

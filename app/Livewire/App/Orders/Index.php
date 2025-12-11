@@ -4,6 +4,7 @@ namespace App\Livewire\App\Orders;
 
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -36,10 +37,10 @@ class Index extends Component
 
     public function showDetail(int $id): void
     {
-        $this->selectedOrder = Order::query()
-            ->where('user_id', Auth::id())
-            ->with(['product', 'paymentMethod'])
-            ->findOrFail($id);
+        $order = Order::with(['product', 'paymentMethod'])->findOrFail($id);
+        Gate::authorize('view', $order);
+        
+        $this->selectedOrder = $order;
         $this->showDetailModal = true;
     }
 

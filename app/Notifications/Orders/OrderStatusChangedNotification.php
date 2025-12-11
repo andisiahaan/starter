@@ -19,11 +19,6 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Send notification after database commit.
-     */
-    public $afterCommit = true;
-
     protected NotificationType $type;
 
     /**
@@ -35,6 +30,7 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
         public string $newStatus
     ) {
         $this->type = $this->determineNotificationType($newStatus);
+        $this->afterCommit();
     }
 
     /**

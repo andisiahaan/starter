@@ -47,3 +47,6 @@ Route::get('/news/{news}', NewsShow::class)->name('news.show');
 // Referral System
 Route::get('/referral', \App\Livewire\App\Referral\Index::class)->name('referral.index');
 Route::get('/referral/withdrawals', \App\Livewire\App\Referral\Withdrawals::class)->name('referral.withdrawals');
+
+// Notifications
+Route::get('/notifications', \App\Livewire\App\Notifications\Index::class)->name('notifications.index');

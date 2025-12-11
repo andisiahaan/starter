@@ -19,11 +19,6 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Send notification after database commit.
-     */
-    public $afterCommit = true;
-
     protected NotificationType $type;
 
     /**
@@ -33,6 +28,7 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
         public Order $order
     ) {
         $this->type = NotificationType::ORDER_CREATED;
+        $this->afterCommit();
     }
 
     /**

@@ -18,14 +18,13 @@ class NewsPublishedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $afterCommit = true;
-
     protected NotificationType $type;
 
     public function __construct(
         protected News $news
     ) {
         $this->type = NotificationType::NEWS_PUBLISHED;
+        $this->afterCommit();
     }
 
     /**
