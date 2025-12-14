@@ -49,6 +49,9 @@ class PermissionSeeder extends Seeder
             'edit-pages',
             'delete-pages',
 
+            // Help Center
+            'view-help-center',
+
             // Products
             'view-products',
             'create-products',
