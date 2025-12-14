@@ -40,6 +40,7 @@ class Order extends Model
             'subtotal' => 'decimal:2',
             'fee_amount' => 'decimal:2',
             'total_amount' => 'decimal:2',
+            'status' => \App\Enums\OrderStatus::class,
             'verified_at' => 'datetime',
             'credit_given_at' => 'datetime',
             'expires_at' => 'datetime',
@@ -111,15 +112,15 @@ class Order extends Model
      */
     public function scopePending($query)
     {
-        return $query->where('status', 'pending');
+        return $query->where('status', \App\Enums\OrderStatus::PENDING);
     }
 
     /**
-     * Scope for verified orders.
+     * Scope for paid orders.
      */
-    public function scopeVerified($query)
+    public function scopePaid($query)
     {
-        return $query->where('status', 'verified');
+        return $query->where('status', \App\Enums\OrderStatus::PAID);
     }
 
     /**
@@ -127,7 +128,7 @@ class Order extends Model
      */
     public function scopeFailed($query)
     {
-        return $query->where('status', 'failed');
+        return $query->where('status', \App\Enums\OrderStatus::FAILED);
     }
 
     /**
@@ -135,13 +136,13 @@ class Order extends Model
      */
     public function scopeCancelled($query)
     {
-        return $query->where('status', 'cancelled');
+        return $query->where('status', \App\Enums\OrderStatus::CANCELLED);
     }
 
     /**
      * Scope for orders by status.
      */
-    public function scopeStatus($query, string $status)
+    public function scopeStatus($query, \App\Enums\OrderStatus|string $status)
     {
         return $query->where('status', $status);
     }
@@ -151,15 +152,15 @@ class Order extends Model
      */
     public function isPending(): bool
     {
-        return $this->status === 'pending';
+        return $this->status === \App\Enums\OrderStatus::PENDING;
     }
 
     /**
-     * Check if order is verified.
+     * Check if order is paid.
      */
-    public function isVerified(): bool
+    public function isPaid(): bool
     {
-        return $this->status === 'verified';
+        return $this->status === \App\Enums\OrderStatus::PAID;
     }
 
     /**
@@ -179,13 +180,13 @@ class Order extends Model
     }
 
     /**
-     * Mark order as verified.
+     * Mark order as paid.
      */
-    public function markAsVerified(?string $gatewayReference = null): bool
+    public function markAsPaid(?string $gatewayReference = null): bool
     {
         return $this->update([
-            'status' => 'verified',
-            'verified_at' => now(),
+            'status' => \App\Enums\OrderStatus::PAID,
+            'verified_at' => now(), // Keep using verified_at as paid timestamp
             'gateway_reference' => $gatewayReference ?? $this->gateway_reference,
         ]);
     }
@@ -196,7 +197,7 @@ class Order extends Model
     public function markAsFailed(?string $notes = null): bool
     {
         return $this->update([
-            'status' => 'failed',
+            'status' => \App\Enums\OrderStatus::FAILED,
             'notes' => $notes ?? $this->notes,
         ]);
     }
@@ -207,7 +208,7 @@ class Order extends Model
     public function markAsCancelled(?string $notes = null): bool
     {
         return $this->update([
-            'status' => 'cancelled',
+            'status' => \App\Enums\OrderStatus::CANCELLED,
             'notes' => $notes ?? $this->notes,
         ]);
     }

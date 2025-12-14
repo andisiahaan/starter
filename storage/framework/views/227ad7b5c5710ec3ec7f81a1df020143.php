@@ -1,13 +1,13 @@
 <div class="p-6 space-y-8">
     
     <div class="border-b border-slate-200 dark:border-dark-border pb-4">
-        <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Notification Preferences</h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Choose how you want to receive notifications.</p>
+        <h2 class="text-lg font-semibold text-slate-900 dark:text-white"><?php echo e(__('notifications.preferences.title')); ?></h2>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('notifications.preferences.description')); ?></p>
     </div>
 
     
     <div class="space-y-4">
-        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider">Notification Channels</h3>
+        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider"><?php echo e(__('notifications.preferences.channels.title')); ?></h3>
         
         <div class="grid gap-4 sm:grid-cols-3">
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $channels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $channel): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
@@ -34,7 +34,7 @@
                         </div>
                         
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($channel->isRequired()): ?>
-                            <span class="px-2 py-1 text-xs font-medium text-primary-700 dark:text-primary-300 bg-primary-200 dark:bg-primary-800/50 rounded">Required</span>
+                            <span class="px-2 py-1 text-xs font-medium text-primary-700 dark:text-primary-300 bg-primary-200 dark:bg-primary-800/50 rounded"><?php echo e(__('common.required')); ?></span>
                         <?php elseif($isPush): ?>
                             
                             <div class="flex items-center gap-2">
@@ -70,7 +70,7 @@
 
     
     <div class="space-y-4">
-        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider">Notification Types</h3>
+        <h3 class="text-sm font-medium text-slate-900 dark:text-white uppercase tracking-wider"><?php echo e(__('notifications.preferences.types_title')); ?></h3>
         
         <div class="space-y-4">
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $categorizedTypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
@@ -86,9 +86,9 @@
                         <span class="font-medium text-slate-900 dark:text-white"><?php echo e($category['label'] ?? 'Unknown'); ?></span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button wire:click="enableCategory('<?php echo e($category['key'] ?? ''); ?>')" class="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">Enable all</button>
+                        <button wire:click="enableCategory('<?php echo e($category['key'] ?? ''); ?>')" class="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"><?php echo e(__('common.actions.enable_all')); ?></button>
                         <span class="text-slate-300 dark:text-dark-border">|</span>
-                        <button wire:click="disableCategory('<?php echo e($category['key'] ?? ''); ?>')" class="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">Disable all</button>
+                        <button wire:click="disableCategory('<?php echo e($category['key'] ?? ''); ?>')" class="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"><?php echo e(__('common.actions.disable_all')); ?></button>
                     </div>
                 </div>
                 
@@ -102,7 +102,7 @@
                             <div class="flex items-center gap-2">
                                 <p class="text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e($type['label'] ?? 'Unknown'); ?></p>
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($type['isSecurityCritical'] ?? false): ?>
-                                    <span class="px-1.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">Security</span>
+                                    <span class="px-1.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded"><?php echo e(__('common.security')); ?></span>
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             </div>
                             <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5"><?php echo e($type['description'] ?? ''); ?></p>

@@ -17,6 +17,8 @@ return [
         'update' => 'Update',
         'maintenance' => 'Maintenance',
         'warning' => 'Warning',
+        'info' => 'Info',
+        'information' => 'Information',
     ],
     
     'empty' => [
@@ -35,5 +37,19 @@ return [
         'publish_at' => 'Publish At',
         'expires_at' => 'Expires At',
         'pinned' => 'Pinned',
+    ],
+
+    // ==========================================
+    // NOTIFICATIONS
+    // ==========================================
+    'notifications' => [
+        'published' => [
+            'subject' => '[:app] :title',
+            'greeting' => 'Hello :name!',
+            'line1' => 'A new article has been published.',
+            'action' => 'Read Article',
+            'title' => 'New Article',
+            'message' => ':title',
+        ],
     ],
 ];

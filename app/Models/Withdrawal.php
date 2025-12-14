@@ -122,25 +122,51 @@ class Withdrawal extends Model
      */
     public function markAsCompleted(int $processedBy, ?string $notes = null): bool
     {
-        return $this->update([
+        $oldStatus = $this->status;
+        
+        $result = $this->update([
             'status' => self::STATUS_COMPLETED,
             'processed_by' => $processedBy,
             'processed_at' => now(),
             'admin_notes' => $notes,
         ]);
+
+        // Notify user about status change
+        if ($result && $this->user) {
+            $this->user->notify(new \App\Notifications\Withdrawals\WithdrawalStatusUpdatedNotification($this, $oldStatus));
+        }
+
+        return $result;
     }
 
     /**
-     * Mark as rejected.
+     * Mark as rejected and restore user's referral balance.
      */
     public function markAsRejected(int $processedBy, ?string $notes = null): bool
     {
-        return $this->update([
+        $oldStatus = $this->status;
+        
+        $result = $this->update([
             'status' => self::STATUS_REJECTED,
             'processed_by' => $processedBy,
             'processed_at' => now(),
             'admin_notes' => $notes,
         ]);
+
+        if ($result && $this->user) {
+            // Restore referral balance
+            $this->user->addReferralBalance(
+                amount: (float) $this->amount,
+                type: \App\Enums\ReferralBalanceLogType::WITHDRAWAL_REJECTED,
+                description: __('referral.balance_log.withdrawal_rejected'),
+                reference: $this
+            );
+
+            // Notify user about status change
+            $this->user->notify(new \App\Notifications\Withdrawals\WithdrawalStatusUpdatedNotification($this, $oldStatus));
+        }
+
+        return $result;
     }
 
     /**

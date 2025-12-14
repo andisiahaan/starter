@@ -2,7 +2,6 @@
 
 namespace App\Notifications\Tickets;
 
-use App\Enums\NotificationChannel;
 use App\Enums\NotificationType;
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
@@ -10,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Storage;
-use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
 class TicketCreatedNotification extends Notification implements ShouldQueue
@@ -26,43 +24,33 @@ class TicketCreatedNotification extends Notification implements ShouldQueue
         $this->afterCommit();
     }
 
-    /**
-     * Get the notification's delivery channels.
-     */
     public function via(object $notifiable): array
     {
         return $notifiable->getNotificationViaChannels($this->type);
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
-        $appName = config('app.name');
+        $appName = setting('main.name', config('app.name'));
 
         return (new MailMessage)
-            ->subject("[{$this->ticket->ticket_number}] Ticket Created - {$appName}")
-            ->greeting("Hello {$notifiable->name}!")
-            ->line("Your support ticket has been created successfully.")
-            ->line("**Ticket Number:** {$this->ticket->ticket_number}")
-            ->line("**Subject:** {$this->ticket->subject}")
-            ->line("**Category:** " . (Ticket::categories()[$this->ticket->category] ?? $this->ticket->category))
-            ->line("**Priority:** " . (Ticket::priorities()[$this->ticket->priority] ?? $this->ticket->priority))
-            ->action('View Ticket', url('/app/tickets/' . $this->ticket->id))
-            ->line('Our team will respond to your ticket as soon as possible.');
+            ->subject(__('tickets.notifications.created.subject', ['app' => $appName, 'ticket_id' => $this->ticket->ticket_number]))
+            ->greeting(__('tickets.notifications.created.greeting', ['name' => $notifiable->name]))
+            ->line(__('tickets.notifications.created.line1'))
+            ->line(__('tickets.notifications.created.ticket_id', ['value' => $this->ticket->ticket_number]))
+            ->line(__('tickets.notifications.created.subject_label', ['value' => $this->ticket->subject]))
+            ->line(__('tickets.notifications.created.priority', ['value' => __('tickets.priority.' . $this->ticket->priority)]))
+            ->action(__('tickets.notifications.created.action'), url('/app/tickets/' . $this->ticket->id))
+            ->line(__('tickets.notifications.created.line2'));
     }
 
-    /**
-     * Get the array representation of the notification.
-     */
     public function toArray(object $notifiable): array
     {
         return [
             'type' => $this->type->value,
             'category' => $this->type->getCategory(),
-            'title' => 'Ticket Created',
-            'message' => "Your ticket #{$this->ticket->ticket_number} has been created.",
+            'title' => __('tickets.notifications.created.title'),
+            'message' => __('tickets.notifications.created.message', ['ticket_id' => $this->ticket->ticket_number]),
             'ticket_id' => $this->ticket->id,
             'ticket_number' => $this->ticket->ticket_number,
             'subject' => $this->ticket->subject,
@@ -70,16 +58,13 @@ class TicketCreatedNotification extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the web push representation of the notification.
-     */
     public function toWebPush(object $notifiable, $notification): WebPushMessage
     {
         return (new WebPushMessage)
-            ->title('Ticket Created')
+            ->title(__('tickets.notifications.created.title'))
             ->icon(Storage::url(setting('main.logo')))
-            ->body("Your ticket #{$this->ticket->ticket_number} has been created successfully.")
-            ->action('View Ticket', '/app/tickets/' . $this->ticket->id)
+            ->body(__('tickets.notifications.created.message', ['ticket_id' => $this->ticket->ticket_number]))
+            ->action(__('tickets.notifications.created.action'), '/app/tickets/' . $this->ticket->id)
             ->options([
                 'urgency' => 'normal',
                 'TTL' => 86400,

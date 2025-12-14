@@ -83,9 +83,9 @@ class TripayCallbackController extends Controller
             ]);
         }
 
-        // Check if order already verified
-        if ($order->status === 'verified') {
-            Log::debug('Order already verified', ['order_id' => $order->id]);
+        // Check if order already paid (idempotency)
+        if ($order->status === \App\Enums\OrderStatus::PAID) {
+            Log::debug('Order already paid', ['order_id' => $order->id]);
             return Response::json([
                 'success' => true,
                 'message' => 'Order already processed',
@@ -97,21 +97,21 @@ class TripayCallbackController extends Controller
 
             switch ($status) {
                 case 'PAID':
-                    // Mark as verified - this will trigger OrderObserver for credit giving
+                    // Mark as paid - this will trigger OrderObserver for credit giving
                     $order->update([
-                        'status' => 'verified',
-                        'verified_at' => now(),
+                        'status' => \App\Enums\OrderStatus::PAID,
+                        'verified_at' => now(), // Keep using verified_at as paid timestamp
                         'payment_details' => array_merge(
                             (array) $order->payment_details,
                             ['paid_at' => now()->toISOString(), 'callback_status' => 'PAID']
                         ),
                     ]);
-                    Log::debug('Order marked as verified', ['order_id' => $order->id]);
+                    Log::debug('Order marked as paid', ['order_id' => $order->id]);
                     break;
 
                 case 'EXPIRED':
                     $order->update([
-                        'status' => 'failed',
+                        'status' => \App\Enums\OrderStatus::FAILED,
                         'notes' => 'Payment expired',
                         'payment_details' => array_merge(
                             (array) $order->payment_details,
@@ -123,7 +123,7 @@ class TripayCallbackController extends Controller
 
                 case 'FAILED':
                     $order->update([
-                        'status' => 'failed',
+                        'status' => \App\Enums\OrderStatus::FAILED,
                         'notes' => 'Payment failed',
                         'payment_details' => array_merge(
                             (array) $order->payment_details,

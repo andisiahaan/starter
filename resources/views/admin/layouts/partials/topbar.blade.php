@@ -77,7 +77,8 @@
                     </div>
                 </div>
             </div>
-
+            {{-- Notifications --}}
+            @livewire('app.components.notification-dropdown')
             @include('layouts.partials.theme-toggler')
 
             <!-- Profile Dropdown -->

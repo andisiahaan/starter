@@ -5,6 +5,7 @@ namespace App\Livewire\App\ApiTokens\Modals;
 use AndiSiahaan\LivewireModal\ModalComponent;
 use App\Enums\ApiTokenAbility;
 use Carbon\Carbon;
+use App\Helpers\Toast;
 
 class CreateTokenModal extends ModalComponent
 {
@@ -62,8 +63,11 @@ class CreateTokenModal extends ModalComponent
             $expiresAt
         );
         
+        // Dispatch token created event to Index component (will display the token)
         $this->dispatch('tokenCreated', plainTextToken: $token->plainTextToken);
         $this->dispatch('refreshApiTokens');
+        
+        Toast::success(__('api-tokens.messages.created'));
         $this->closeModal();
     }
 

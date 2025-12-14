@@ -27,6 +27,10 @@ enum NotificationType: string
     case TICKET_CLOSED = 'ticket.closed';
     case TICKET_ASSIGNED = 'ticket.assigned';
 
+    // Withdrawal notifications
+    case WITHDRAWAL_CREATED = 'withdrawal.created';
+    case WITHDRAWAL_STATUS_UPDATED = 'withdrawal.status_updated';
+
     // News notifications
     case NEWS_PUBLISHED = 'news.published';
 
@@ -49,6 +53,7 @@ enum NotificationType: string
     case ADMIN_TICKET_CREATED = 'admin.ticket_created';
     case ADMIN_SYSTEM_ERROR = 'admin.system_error';
     case ADMIN_LOW_STOCK = 'admin.low_stock';
+    case ADMIN_WITHDRAWAL_CREATED = 'admin.withdrawal_created';
 
     // Test notification
     case TEST = 'test';
@@ -75,6 +80,8 @@ enum NotificationType: string
             
             self::TICKET_CREATED, self::TICKET_REPLIED, self::TICKET_CLOSED,
             self::TICKET_ASSIGNED => 'ticket',
+
+            self::WITHDRAWAL_CREATED, self::WITHDRAWAL_STATUS_UPDATED => 'withdrawal',
             
             self::NEWS_PUBLISHED => 'news',
             
@@ -85,7 +92,8 @@ enum NotificationType: string
             self::SYSTEM_MAINTENANCE, self::SYSTEM_UPDATE, self::SYSTEM_ANNOUNCEMENT => 'system',
 
             self::ADMIN_USER_REGISTERED, self::ADMIN_ORDER_CREATED, self::ADMIN_ORDER_FAILED,
-            self::ADMIN_TICKET_CREATED, self::ADMIN_SYSTEM_ERROR, self::ADMIN_LOW_STOCK => 'admin',
+            self::ADMIN_TICKET_CREATED, self::ADMIN_SYSTEM_ERROR, self::ADMIN_LOW_STOCK,
+            self::ADMIN_WITHDRAWAL_CREATED => 'admin',
             
             self::TEST => 'test',
         };
@@ -117,6 +125,7 @@ enum NotificationType: string
             'order' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
             'credit' => 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
             'ticket' => 'M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z',
+            'withdrawal' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
             'news' => 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z',
             'account' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
             'system' => 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z',
@@ -134,6 +143,7 @@ enum NotificationType: string
             'order' => ['bg' => 'bg-blue-100 dark:bg-blue-900/30', 'text' => 'text-blue-600 dark:text-blue-400'],
             'credit' => ['bg' => 'bg-green-100 dark:bg-green-900/30', 'text' => 'text-green-600 dark:text-green-400'],
             'ticket' => ['bg' => 'bg-orange-100 dark:bg-orange-900/30', 'text' => 'text-orange-600 dark:text-orange-400'],
+            'withdrawal' => ['bg' => 'bg-emerald-100 dark:bg-emerald-900/30', 'text' => 'text-emerald-600 dark:text-emerald-400'],
             'news' => ['bg' => 'bg-indigo-100 dark:bg-indigo-900/30', 'text' => 'text-indigo-600 dark:text-indigo-400'],
             'account' => ['bg' => 'bg-purple-100 dark:bg-purple-900/30', 'text' => 'text-purple-600 dark:text-purple-400'],
             'system' => ['bg' => 'bg-amber-100 dark:bg-amber-900/30', 'text' => 'text-amber-600 dark:text-amber-400'],

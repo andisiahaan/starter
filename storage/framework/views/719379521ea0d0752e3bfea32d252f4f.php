@@ -97,6 +97,20 @@ if (isset($__slots)) unset($__slots);
                     </div>
 
                     <div class="py-1">
+                        
+                        <!-- Credits -->
+                        <a href="<?php echo e(route('app.credits.index')); ?>" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 8c4.418 0 8-1.343 8-3s-3.582-3-8-3-8 1.343-8 3 3.582 3 8 3z" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 10c0 1.657 3.582 3 8 3s8-1.343 8-3M4 14c0 1.657 3.582 3 8 3s8-1.343 8-3" />
+</svg>
+
+                            <?php echo e(__('common.nav.credits')); ?> : <?php echo e(setting('main.currency', '-')); ?><?php echo e(number_format(Auth::user()->credit, 0, ',', '.')); ?>
+
+                        </a>
+                        
                         <!-- Account Settings -->
                         <a href="<?php echo e(route('app.account')); ?>" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                             <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

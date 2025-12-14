@@ -75,8 +75,9 @@
                     <div>
                         <label for="language" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.language') }}</label>
                         <select wire:model="state.default_language" id="language" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
-                            <option value="en">{{ __('settings.general.languages.en') }}</option>
-                            <option value="id">{{ __('settings.general.languages.id') }}</option>
+                            @foreach($languages as $code => $lang)
+                            <option value="{{ $code }}">{{ $lang['flag'] }} {{ $lang['native_name'] }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -88,10 +89,30 @@
                         </select>
                     </div>
 
-                    <div>
-                        <label for="timezone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.timezone') }}</label>
-                        <input type="text" wire:model="state.timezone" id="timezone" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm" placeholder="Asia/Jakarta">
-                    </div>
+                    @php
+    $timezones = \DateTimeZone::listIdentifiers();
+@endphp
+
+<div>
+    <label for="timezone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+        {{ __('settings.general.timezone') }}
+    </label>
+
+    <select
+        wire:model="state.timezone"
+        id="timezone"
+        class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+    >
+        <option value="">{{ __('Select Timezone') }}</option>
+
+        @foreach ($timezones as $timezone)
+            <option value="{{ $timezone }}">
+                {{ $timezone }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
 
                     <div>
                         <label for="currency" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.currency') }}</label>

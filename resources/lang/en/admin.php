@@ -815,6 +815,9 @@ return [
             'unassigned' => 'Unassigned',
             'guest' => 'Guest',
         ],
+        'attachments' => 'Attachments',
+        'attach_files' => 'Attach Files',
+        'attachments_note' => 'Max 5 files. Accepted: JPG, PNG, GIF, PDF, DOC, TXT (max 5MB each)',
     ],
     
     // ==========================================
@@ -943,6 +946,56 @@ return [
         
         'sr' => [
             'select_section' => 'Select a section',
+        ],
+    ],
+
+    // ==========================================
+    // ADMIN NOTIFICATIONS
+    // ==========================================
+    'notifications' => [
+        'order_created' => [
+            'subject' => 'New Order Created',
+            'greeting' => 'Hello Admin!',
+            'line1' => 'A new order has been placed.',
+            'user' => '• User: :value',
+            'product' => '• Product: :value',
+            'amount' => '• Amount: :value',
+            'action' => 'View Order',
+            'title' => 'New Order',
+            'message' => ':user placed order for :product',
+        ],
+        'ticket_created' => [
+            'subject' => 'New Support Ticket',
+            'greeting' => 'Hello Admin!',
+            'line1' => 'A new support ticket has been submitted.',
+            'user' => '• User: :value',
+            'subject_label' => '• Subject: :value',
+            'priority' => '• Priority: :value',
+            'action' => 'View Ticket',
+            'title' => 'New Ticket',
+            'message' => ':user created ticket: :subject',
+        ],
+        'user_registered' => [
+            'subject' => 'New User Registered',
+            'greeting' => 'Hello Admin!',
+            'line1' => 'A new user has registered.',
+            'name' => '• Name: :value',
+            'email' => '• Email: :value',
+            'action' => 'View User',
+            'title' => 'New User',
+            'message' => ':name (:email) has registered.',
+        ],
+        'withdrawal_created' => [
+            'subject' => 'New Withdrawal Request',
+            'greeting' => 'Hello Admin!',
+            'line1' => 'A new withdrawal request has been submitted.',
+            'user' => '• User: :value',
+            'amount' => '• Amount: :value',
+            'account' => '• Account: :value',
+            'action' => 'Review Withdrawal',
+            'line2' => 'Please review and process this request.',
+            'title' => 'New Withdrawal Request',
+            'message' => ':user requested withdrawal of :amount',
         ],
     ],
 ];

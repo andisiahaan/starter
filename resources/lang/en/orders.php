@@ -14,10 +14,12 @@ return [
     
     'status' => [
         'pending' => 'Pending',
-        'verified' => 'Verified',
+        'paid' => 'Paid',
+        'processing' => 'Processing',
+        'completed' => 'Completed',
         'failed' => 'Failed',
-        'expired' => 'Expired',
         'cancelled' => 'Cancelled',
+        'refunded' => 'Refunded',
     ],
     
     'list' => [
@@ -91,6 +93,63 @@ return [
             'fee' => 'Fee',
             'total' => 'Total',
             'reference' => 'Reference',
+        ],
+    ],
+
+    // ==========================================
+    // NOTIFICATIONS
+    // ==========================================
+    'notifications' => [
+        'created' => [
+            'subject' => '[:app] Order Created',
+            'greeting' => 'Hello :name!',
+            'line1' => 'Your order has been successfully created.',
+            'details_title' => '**Order Details:**',
+            'order_id' => '• Order ID: :value',
+            'product' => '• Product: :value',
+            'amount' => '• Amount: :value',
+            'credit' => '• Credit: :value credits',
+            'status' => '• Status: :value',
+            'action' => 'View Order',
+            'thanks' => 'Thank you for your purchase!',
+            'title' => 'Order Created',
+            'message' => 'Your order #:order_number for :product has been created.',
+        ],
+        'status_updated' => [
+            'subject' => '[:app] Order Status Updated',
+            'greeting' => 'Hello :name!',
+            'line1' => 'Your order status has been updated.',
+            'details_title' => '**Order Details:**',
+            'order_id' => '• Order ID: :value',
+            'product' => '• Product: :value',
+            'previous_status' => '• Previous Status: :value',
+            'new_status' => '• New Status: :value',
+            'action' => 'View Order',
+            'title' => 'Order Status: :status',
+            'statuses' => [
+                'verified' => '✅ Your order has been verified and credit will be added to your account.',
+                'paid' => '✅ Your payment has been confirmed.',
+                'processing' => '⏳ Your order is now being processed.',
+                'completed' => '✅ Your order has been completed successfully!',
+                'failed' => '❌ Your order has failed. Please contact support if you need assistance.',
+                'cancelled' => '❌ Your order has been cancelled.',
+                'refunded' => '💰 Your order has been refunded.',
+                'default' => 'Your order status has been updated to :status.',
+            ],
+        ],
+        'credit_added' => [
+            'subject' => '[:app] 💰 Credit Added to Your Account',
+            'greeting' => 'Hello :name!',
+            'line1' => 'Great news! Credit has been added to your account.',
+            'details_title' => '**Transaction Details:**',
+            'order_id' => '• Order ID: :value',
+            'product' => '• Product: :value',
+            'credit_added' => '• Credit Added: :value credits',
+            'new_balance' => '• New Balance: :value credits',
+            'action' => 'View Balance',
+            'thanks' => 'Thank you for your purchase!',
+            'title' => '💰 Credit Added',
+            'message' => ':amount credits have been added to your account from order #:order_number.',
         ],
     ],
 ];

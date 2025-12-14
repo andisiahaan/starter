@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Orders\Modals;
 
 use AndiSiahaan\LivewireModal\ModalComponent;
+use App\Enums\OrderStatus;
 use App\Helpers\Toast;
 use App\Models\Order;
 
@@ -13,18 +14,11 @@ class UpdateOrderStatusModal extends ModalComponent
     public string $newStatus = '';
     public string $statusNote = '';
 
-    public array $statuses = [
-        'pending' => 'Pending',
-        'verified' => 'Verified',
-        'failed' => 'Failed',
-        'cancelled' => 'Cancelled',
-    ];
-
     public function mount(int $orderId): void
     {
         $this->orderId = $orderId;
         $this->order = Order::findOrFail($orderId);
-        $this->newStatus = $this->order->status;
+        $this->newStatus = $this->order->status->value;
     }
 
     public function updateStatus(): void
@@ -34,35 +28,40 @@ class UpdateOrderStatusModal extends ModalComponent
         }
 
         // Check permission based on action
-        $permission = $this->newStatus === 'verified' ? 'verify-orders' : 'edit-orders';
+        $permission = $this->newStatus === OrderStatus::PAID->value ? 'verify-orders' : 'edit-orders';
         if (!auth()->user()->can($permission)) {
-            Toast::error('You do not have permission to perform this action.');
+            Toast::error(__('common.messages.no_permission'));
             $this->closeModal();
             return;
         }
 
+        $validStatuses = implode(',', OrderStatus::values());
         $this->validate([
-            'newStatus' => 'required|in:pending,verified,failed,cancelled',
+            'newStatus' => "required|in:{$validStatuses}",
         ]);
 
         $oldStatus = $this->order->status;
+        $newStatusEnum = OrderStatus::from($this->newStatus);
 
         // Update notes if provided
         if ($this->statusNote) {
             $currentNotes = $this->order->notes ?? '';
-            $newNote = "[" . now()->format('Y-m-d H:i') . "] Status changed from {$oldStatus} to {$this->newStatus}: {$this->statusNote}";
+            $newNote = "[" . now()->format('Y-m-d H:i') . "] Status changed from {$oldStatus->getLabel()} to {$newStatusEnum->getLabel()}: {$this->statusNote}";
             $this->order->notes = $currentNotes ? $currentNotes . "\n" . $newNote : $newNote;
         }
 
-        $this->order->status = $this->newStatus;
+        $this->order->status = $newStatusEnum;
 
-        if ($this->newStatus === 'verified' && !$this->order->verified_at) {
+        if ($newStatusEnum === OrderStatus::PAID && !$this->order->verified_at) {
             $this->order->verified_at = now();
         }
 
         $this->order->save();
 
-        Toast::success("Order status updated from '{$oldStatus}' to '{$this->newStatus}'.");
+        Toast::success(__('admin.orders.messages.status_updated', [
+            'old' => $oldStatus->getLabel(),
+            'new' => $newStatusEnum->getLabel(),
+        ]));
 
         $this->dispatch('refreshOrders');
         $this->closeModal();
@@ -75,6 +74,8 @@ class UpdateOrderStatusModal extends ModalComponent
 
     public function render()
     {
-        return view('admin.livewire.orders.modals.update-order-status-modal');
+        return view('admin.livewire.orders.modals.update-order-status-modal', [
+            'statuses' => OrderStatus::toSelectOptions(),
+        ]);
     }
 }

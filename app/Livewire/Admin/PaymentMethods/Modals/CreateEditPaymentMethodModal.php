@@ -13,6 +13,7 @@ class CreateEditPaymentMethodModal extends ModalComponent
     public string $provider = 'MANUAL';
     public string $name = '';
     public string $type = 'bank';
+    public string $flow = 'both';
     public string $description = '';
     public string $min_amount = '';
     public string $max_amount = '';
@@ -27,6 +28,12 @@ class CreateEditPaymentMethodModal extends ModalComponent
         'other' => 'Other',
     ];
 
+    public array $flows = [
+        'deposit' => 'Deposit Only',
+        'withdraw' => 'Withdraw Only',
+        'both' => 'Both (Deposit & Withdraw)',
+    ];
+
     public function mount(?int $paymentMethodId = null): void
     {
         $this->paymentMethodId = $paymentMethodId;
@@ -37,6 +44,7 @@ class CreateEditPaymentMethodModal extends ModalComponent
             $this->provider = $method->provider ?? 'MANUAL';
             $this->name = $method->name;
             $this->type = $method->type;
+            $this->flow = $method->flow ?? 'both';
             $this->description = $method->description ?? '';
             $this->min_amount = (string) ($method->min_amount ?? '');
             $this->max_amount = (string) ($method->max_amount ?? '');
@@ -53,6 +61,7 @@ class CreateEditPaymentMethodModal extends ModalComponent
             'provider' => 'required|in:TRIPAY,MANUAL',
             'name' => 'required|string|max:255',
             'type' => 'required|in:bank,e_wallet,card,other',
+            'flow' => 'required|in:deposit,withdraw,both',
             'description' => 'nullable|string',
             'min_amount' => 'nullable|numeric|min:0',
             'max_amount' => 'nullable|numeric|min:0',
@@ -71,6 +80,7 @@ class CreateEditPaymentMethodModal extends ModalComponent
             'provider' => $this->provider,
             'name' => $this->name,
             'type' => $this->type,
+            'flow' => $this->flow,
             'description' => $this->description ?: null,
             'min_amount' => $this->min_amount ?: null,
             'max_amount' => $this->max_amount ?: null,

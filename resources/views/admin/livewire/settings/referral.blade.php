@@ -82,6 +82,57 @@
                     @error('state.min_withdrawal') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
                 </div>
 
+                <!-- Max Withdrawal -->
+                <div>
+                    <label for="max_withdrawal" class="block text-sm font-medium text-slate-900 dark:text-white mb-1">
+                        {{ __('settings.referral.max_withdrawal.label') }}
+                    </label>
+                    <input type="number" wire:model="state.max_withdrawal" id="max_withdrawal" min="0" step="1000"
+                           class="w-full max-w-xs bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 focus:ring-primary-500 focus:border-primary-500">
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('settings.referral.max_withdrawal.description') }}</p>
+                    @error('state.max_withdrawal') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
+                </div>
+
+                <hr class="border-slate-200 dark:border-dark-border">
+
+                <h4 class="text-sm font-medium text-slate-900 dark:text-white">{{ __('settings.referral.withdrawal.title') }}</h4>
+
+                <!-- Enable Withdrawal -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <label class="text-sm font-medium text-slate-900 dark:text-white">{{ __('settings.referral.withdrawal.enabled.label') }}</label>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('settings.referral.withdrawal.enabled.description') }}</p>
+                    </div>
+                    <button type="button" wire:click="$toggle('state.is_withdraw_enabled')"
+                            class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 {{ $state['is_withdraw_enabled'] ? 'bg-primary-600' : 'bg-slate-200 dark:bg-slate-600' }}">
+                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $state['is_withdraw_enabled'] ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                    </button>
+                </div>
+
+                <!-- Require Email OTP -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <label class="text-sm font-medium text-slate-900 dark:text-white">{{ __('settings.referral.withdrawal.require_otp.label') }}</label>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('settings.referral.withdrawal.require_otp.description') }}</p>
+                    </div>
+                    <button type="button" wire:click="$toggle('state.is_withdraw_require_otp')"
+                            class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 {{ $state['is_withdraw_require_otp'] ? 'bg-primary-600' : 'bg-slate-200 dark:bg-slate-600' }}">
+                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $state['is_withdraw_require_otp'] ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                    </button>
+                </div>
+
+                <!-- Require Password Confirmation -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <label class="text-sm font-medium text-slate-900 dark:text-white">{{ __('settings.referral.withdrawal.require_password.label') }}</label>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('settings.referral.withdrawal.require_password.description') }}</p>
+                    </div>
+                    <button type="button" wire:click="$toggle('state.is_withdraw_require_password')"
+                            class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 {{ $state['is_withdraw_require_password'] ? 'bg-primary-600' : 'bg-slate-200 dark:bg-slate-600' }}">
+                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $state['is_withdraw_require_password'] ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                    </button>
+                </div>
+
                 <!-- Example Calculation -->
                 <div class="bg-slate-50 dark:bg-dark-soft rounded-lg p-4 border border-slate-200 dark:border-dark-border">
                     <h5 class="text-sm font-medium text-slate-900 dark:text-white mb-2">{{ __('settings.referral.example.title') }}</h5>

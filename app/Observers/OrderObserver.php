@@ -88,14 +88,7 @@ class OrderObserver
         }
 
         // Send status change notification
-        $notificationType = match ($newStatus) {
-            'paid' => 'order.paid',
-            'processing' => 'order.processing',
-            'completed' => 'order.completed',
-            'failed', 'cancelled' => 'order.failed',
-            'refunded' => 'order.refunded',
-            default => null,
-        };
+        $notificationType = $newStatus->getNotificationType();
 
         if ($notificationType && NotificationHelper::isTypeEnabled($notificationType)) {
             NotificationHelper::sendAsync(
@@ -104,8 +97,8 @@ class OrderObserver
             );
         }
 
-        // Handle credit giving on verified status
-        if ($newStatus === 'verified') {
+        // Handle credit giving on paid status (payment confirmed)
+        if ($newStatus->isPaid()) {
             $this->processCreditGiving($order);
             $this->processReferralCommission($order);
         }

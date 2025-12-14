@@ -2,7 +2,6 @@
 
 namespace App\Notifications\Orders;
 
-use App\Enums\NotificationChannel;
 use App\Enums\NotificationType;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
@@ -21,9 +20,6 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
 
     protected NotificationType $type;
 
-    /**
-     * Create a new notification instance.
-     */
     public function __construct(
         public Order $order,
         public string $oldStatus,
@@ -33,9 +29,6 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
         $this->afterCommit();
     }
 
-    /**
-     * Determine notification type based on new status.
-     */
     protected function determineNotificationType(string $status): NotificationType
     {
         return match ($status) {
@@ -48,66 +41,48 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
         };
     }
 
-    /**
-     * Get status-specific message.
-     */
     protected function getStatusMessage(): string
     {
-        return match ($this->newStatus) {
-            'verified' => '✅ Your order has been verified and credit will be added to your account.',
-            'paid' => '✅ Your payment has been confirmed.',
-            'processing' => '⏳ Your order is now being processed.',
-            'completed' => '✅ Your order has been completed successfully!',
-            'failed' => '❌ Your order has failed. Please contact support if you need assistance.',
-            'cancelled' => '❌ Your order has been cancelled.',
-            'refunded' => '💰 Your order has been refunded.',
-            default => "Your order status has been updated to {$this->newStatus}.",
-        };
+        $key = "orders.notifications.status_updated.statuses.{$this->newStatus}";
+        $message = __($key);
+        
+        // If key not found, use default
+        if ($message === $key) {
+            return __('orders.notifications.status_updated.statuses.default', ['status' => $this->newStatus]);
+        }
+        
+        return $message;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     public function via(object $notifiable): array
     {
-        // Use the trait method which checks both global and user settings
         return $notifiable->getNotificationViaChannels($this->type);
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
-        $mail = (new MailMessage)
-            ->subject('Order Status Updated - ' . config('app.name'))
-            ->greeting('Hello ' . $notifiable->name . '!')
-            ->line('Your order status has been updated.')
-            ->line('**Order Details:**')
-            ->line('• Order ID: ' . $this->order->order_number)
-            ->line('• Product: ' . $this->order->product_name)
-            ->line('• Previous Status: ' . ucfirst($this->oldStatus))
-            ->line('• New Status: ' . ucfirst($this->newStatus))
+        $appName = setting('main.name', config('app.name'));
+        
+        return (new MailMessage)
+            ->subject(__('orders.notifications.status_updated.subject', ['app' => $appName]))
+            ->greeting(__('orders.notifications.status_updated.greeting', ['name' => $notifiable->name]))
+            ->line(__('orders.notifications.status_updated.line1'))
+            ->line(__('orders.notifications.status_updated.details_title'))
+            ->line(__('orders.notifications.status_updated.order_id', ['value' => $this->order->order_number]))
+            ->line(__('orders.notifications.status_updated.product', ['value' => $this->order->product_name]))
+            ->line(__('orders.notifications.status_updated.previous_status', ['value' => ucfirst($this->oldStatus)]))
+            ->line(__('orders.notifications.status_updated.new_status', ['value' => ucfirst($this->newStatus)]))
             ->line('')
             ->line($this->getStatusMessage())
-            ->action('View Order', route('app.orders.show', $this->order->id));
-
-        return $mail;
+            ->action(__('orders.notifications.status_updated.action'), route('app.orders.show', $this->order->id));
     }
 
-    /**
-     * Get the array representation of the notification for database.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(object $notifiable): array
     {
         return [
             'type' => $this->type->value,
             'category' => $this->type->getCategory(),
-            'title' => 'Order Status Updated',
+            'title' => __('orders.notifications.status_updated.title', ['status' => ucfirst($this->newStatus)]),
             'message' => $this->getStatusMessage(),
             'url' => route('app.orders.show', $this->order->id),
             'data' => [
@@ -120,19 +95,16 @@ class OrderStatusChangedNotification extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the web push representation of the notification.
-     */
     public function toWebPush(object $notifiable, $notification): WebPushMessage
     {
         $icon = Storage::url(setting('main.logo'));
         $urgency = in_array($this->newStatus, ['verified', 'completed', 'paid']) ? 'high' : 'normal';
         
         return (new WebPushMessage)
-            ->title('Order Status: ' . ucfirst($this->newStatus))
+            ->title(__('orders.notifications.status_updated.title', ['status' => ucfirst($this->newStatus)]))
             ->icon($icon)
             ->body($this->getStatusMessage())
-            ->action('View Order', route('app.orders.show', $this->order->id))
+            ->action(__('orders.notifications.status_updated.action'), route('app.orders.show', $this->order->id))
             ->badge($icon)
             ->vibrate([100, 50, 100])
             ->options([

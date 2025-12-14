@@ -354,6 +354,7 @@ return [
     'referral' => [
         'title' => 'Referral Settings',
         'description' => 'Configure referral program and commission settings.',
+        'saved' => 'Referral settings saved successfully.',
         
         'enabled' => [
             'label' => 'Enable Referral Program',
@@ -381,6 +382,27 @@ return [
         'min_withdrawal' => [
             'label' => 'Minimum Withdrawal (Rp)',
             'description' => 'Minimum amount required to request withdrawal.',
+        ],
+
+        'max_withdrawal' => [
+            'label' => 'Maximum Withdrawal (Rp)',
+            'description' => 'Maximum amount per withdrawal request. Set 0 for unlimited.',
+        ],
+        
+        'withdrawal' => [
+            'title' => 'Withdrawal Settings',
+            'enabled' => [
+                'label' => 'Enable Withdrawal',
+                'description' => 'Allow users to request commission withdrawals.',
+            ],
+            'require_otp' => [
+                'label' => 'Require Email OTP',
+                'description' => 'Send OTP to user email for withdrawal verification.',
+            ],
+            'require_password' => [
+                'label' => 'Require Password Confirmation',
+                'description' => 'Users must confirm password when requesting withdrawal.',
+            ],
         ],
         
         'example' => [

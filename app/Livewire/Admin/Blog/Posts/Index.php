@@ -42,6 +42,6 @@ class Index extends Component
 
         return view('admin.livewire.blog.posts.index', [
             'posts' => $posts,
-        ])->layout('admin.layouts.app');
+        ])->layout('admin.layouts.app')->title(__('blog.posts.title'));
     }
 }

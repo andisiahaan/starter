@@ -35,6 +35,14 @@ class Form extends Component
     public array $selected_categories = [];
     public array $selected_tags = [];
 
+    // Inline creation
+    public string $newCategoryName = '';
+    public string $newTagName = '';
+    public bool $showNewCategoryInput = false;
+    public bool $showNewTagInput = false;
+    
+    public $isEditing = false;
+
     public function mount(?BlogPost $post = null)
     {
         if ($post) {
@@ -53,12 +61,64 @@ class Form extends Component
             $this->meta_keywords = $this->post->meta_keywords ?? '';
             $this->selected_categories = $this->post->categories->pluck('id')->toArray();
             $this->selected_tags = $this->post->tags->pluck('id')->toArray();
+            $this->isEditing = true;
         }
     }
 
     public function generateSlug()
     {
         $this->slug = \Str::slug($this->title);
+    }
+
+    /**
+     * Create a new category inline.
+     */
+    public function createCategory(): void
+    {
+        $this->validate([
+            'newCategoryName' => 'required|string|max:255|unique:blog_categories,name',
+        ], [
+            'newCategoryName.required' => __('blog.categories.validation.name_required'),
+            'newCategoryName.unique' => __('blog.categories.validation.name_unique'),
+        ]);
+
+        $category = BlogCategory::create([
+            'name' => $this->newCategoryName,
+            'slug' => \Str::slug($this->newCategoryName),
+            'is_active' => true,
+        ]);
+
+        // Auto-select the new category
+        $this->selected_categories[] = $category->id;
+        $this->newCategoryName = '';
+        $this->showNewCategoryInput = false;
+        
+        Toast::success(__('blog.categories.created'));
+    }
+
+    /**
+     * Create a new tag inline.
+     */
+    public function createTag(): void
+    {
+        $this->validate([
+            'newTagName' => 'required|string|max:255|unique:blog_tags,name',
+        ], [
+            'newTagName.required' => __('blog.tags.validation.name_required'),
+            'newTagName.unique' => __('blog.tags.validation.name_unique'),
+        ]);
+
+        $tag = BlogTag::create([
+            'name' => $this->newTagName,
+            'slug' => \Str::slug($this->newTagName),
+        ]);
+
+        // Auto-select the new tag
+        $this->selected_tags[] = $tag->id;
+        $this->newTagName = '';
+        $this->showNewTagInput = false;
+        
+        Toast::success(__('blog.tags.created'));
     }
 
     public function save()
@@ -145,6 +205,6 @@ class Form extends Component
             'categories' => $categories,
             'tags' => $tags,
             'isEditing' => (bool) $this->post,
-        ])->layout('admin.layouts.app');
+        ])->layout('admin.layouts.app')->title($this->isEditing ? __('blog.posts.edit') : __('blog.posts.create'));
     }
 }

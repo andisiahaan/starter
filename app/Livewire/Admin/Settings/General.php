@@ -77,6 +77,8 @@ class General extends Component
 
     public function render()
     {
-        return view('admin.livewire.settings.general');
+        return view('admin.livewire.settings.general', [
+            'languages' => \App\Services\LanguageService::getAvailableLanguages(),
+        ]);
     }
 }

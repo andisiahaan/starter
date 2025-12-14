@@ -65,4 +65,9 @@ return [
         'created' => 'API token created successfully.',
         'revoked' => 'API token revoked.',
     ],
+
+    'token_created' => [
+        'title' => 'Token Created Successfully!',
+        'warning' => 'Copy your token now. It won\'t be shown again after you leave this page.',
+    ],
 ];

@@ -105,6 +105,7 @@ return [
             'title' => 'Help Articles',
             'description' => 'Manage help center articles and content.',
             'add' => 'Add Article',
+            'create' => 'Create Article',
             'edit' => 'Edit Article',
             'new' => 'New Article',
             'empty' => 'No articles found.',

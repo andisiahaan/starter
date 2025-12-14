@@ -144,9 +144,23 @@
 
                 <!-- Categories -->
                 <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border">
+                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
                         <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{{ __('blog.public.categories') }}</h3>
+                        <button type="button" wire:click="$toggle('showNewCategoryInput')" class="text-xs text-primary-600 hover:text-primary-700">
+                            {{ $showNewCategoryInput ? __('common.actions.cancel') : '+ ' . __('blog.form.add_new') }}
+                        </button>
                     </div>
+                    @if($showNewCategoryInput)
+                    <div class="p-4 bg-slate-50 dark:bg-dark-soft border-b border-slate-200 dark:border-dark-border">
+                        <div class="flex gap-2">
+                            <input type="text" wire:model="newCategoryName" wire:keydown.enter="createCategory" placeholder="{{ __('blog.categories.form.name_placeholder') }}" class="flex-1 rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white text-sm focus:border-primary-500 focus:ring-primary-500">
+                            <button type="button" wire:click="createCategory" class="px-3 py-2 bg-primary-600 text-white text-xs font-medium rounded-lg hover:bg-primary-700">
+                                {{ __('common.actions.add') }}
+                            </button>
+                        </div>
+                        @error('newCategoryName') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                    </div>
+                    @endif
                     <div class="p-6 max-h-48 overflow-y-auto">
                         @forelse($categories as $category)
                         <label class="flex items-center gap-2 py-1">
@@ -154,16 +168,30 @@
                             <span class="text-sm text-slate-700 dark:text-slate-300">{{ $category->name }}</span>
                         </label>
                         @empty
-                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('blog.form.no_categories') }} <a href="{{ route('admin.blog.categories.index') }}" class="text-primary-600">{{ __('blog.form.create_one') }}</a></p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('blog.form.no_categories') }}</p>
                         @endforelse
                     </div>
                 </div>
 
                 <!-- Tags -->
                 <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border">
+                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
                         <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{{ __('blog.public.tags') }}</h3>
+                        <button type="button" wire:click="$toggle('showNewTagInput')" class="text-xs text-primary-600 hover:text-primary-700">
+                            {{ $showNewTagInput ? __('common.actions.cancel') : '+ ' . __('blog.form.add_new') }}
+                        </button>
                     </div>
+                    @if($showNewTagInput)
+                    <div class="p-4 bg-slate-50 dark:bg-dark-soft border-b border-slate-200 dark:border-dark-border">
+                        <div class="flex gap-2">
+                            <input type="text" wire:model="newTagName" wire:keydown.enter="createTag" placeholder="{{ __('blog.tags.form.name_placeholder') }}" class="flex-1 rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white text-sm focus:border-primary-500 focus:ring-primary-500">
+                            <button type="button" wire:click="createTag" class="px-3 py-2 bg-primary-600 text-white text-xs font-medium rounded-lg hover:bg-primary-700">
+                                {{ __('common.actions.add') }}
+                            </button>
+                        </div>
+                        @error('newTagName') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                    </div>
+                    @endif
                     <div class="p-6 max-h-48 overflow-y-auto">
                         @forelse($tags as $tag)
                         <label class="flex items-center gap-2 py-1">
@@ -171,7 +199,7 @@
                             <span class="text-sm text-slate-700 dark:text-slate-300">{{ $tag->name }}</span>
                         </label>
                         @empty
-                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('blog.form.no_tags') }} <a href="{{ route('admin.blog.tags.index') }}" class="text-primary-600">{{ __('blog.form.create_one') }}</a></p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('blog.form.no_tags') }}</p>
                         @endforelse
                     </div>
                 </div>

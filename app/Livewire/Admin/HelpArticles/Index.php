@@ -66,6 +66,8 @@ class Index extends Component
         return view('admin.livewire.help-articles.index', [
             'articles' => $articles,
             'categories' => $categories,
-        ])->layout('admin.layouts.app');
+        ])->layout('admin.layouts.app', [
+            'title' => __('help.admin.articles.title'),
+            ]);
     }
 }

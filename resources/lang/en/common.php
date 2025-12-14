@@ -46,6 +46,7 @@ return [
         'finish' => 'Finish',
         'loading' => 'Loading...',
         'processing' => 'Processing...',
+        'sending' => 'Sending',
         'learn_more' => 'Learn more',
         'read_more' => 'Read more',
         'enable_all' => 'Enable all',
@@ -235,6 +236,7 @@ return [
         'api_docs' => 'API Documentation',
         'administration' => 'Administration',
         'admin_panel' => 'Admin Panel',
+        'help_center' => 'Help Center',
         
         // Footer links
         'company' => 'Company',

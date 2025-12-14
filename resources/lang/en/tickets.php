@@ -49,6 +49,9 @@ return [
         'priority' => 'Priority',
         'description' => 'Description',
         'description_placeholder' => 'Please describe your issue in detail...',
+        'attachments' => 'Attachments',
+        'attachments_hint' => 'Click to upload files',
+        'attachments_note' => 'Max 5 files. Accepted: JPG, PNG, GIF, PDF, DOC, TXT (max 5MB each)',
         'submit' => 'Submit Ticket',
         'submitting' => 'Submitting...',
     ],
@@ -65,6 +68,7 @@ return [
         'send_reply' => 'Send Reply',
         'support_team' => 'Support Team',
         'you' => 'You',
+        'attachments' => 'Attachments',
     ],
     
     // Messages
@@ -73,5 +77,42 @@ return [
         'replied' => 'Reply sent.',
         'closed' => 'Ticket closed.',
         'reopened' => 'Ticket reopened.',
+    ],
+
+    // ==========================================
+    // NOTIFICATIONS
+    // ==========================================
+    'notifications' => [
+        'created' => [
+            'subject' => '[:app] Ticket Created #:ticket_id',
+            'greeting' => 'Hello :name!',
+            'line1' => 'Your support ticket has been created successfully.',
+            'ticket_id' => '• Ticket ID: :value',
+            'subject_label' => '• Subject: :value',
+            'priority' => '• Priority: :value',
+            'action' => 'View Ticket',
+            'line2' => 'Our support team will respond as soon as possible.',
+            'title' => 'Ticket Created',
+            'message' => 'Your ticket #:ticket_id has been created.',
+        ],
+        'replied' => [
+            'subject' => '[:app] New Reply on Ticket #:ticket_id',
+            'greeting' => 'Hello :name!',
+            'line1' => 'There is a new reply on your support ticket.',
+            'ticket_id' => '• Ticket ID: :value',
+            'action' => 'View Reply',
+            'title' => 'Ticket Replied',
+            'message' => 'Your ticket #:ticket_id has a new reply.',
+        ],
+        'closed' => [
+            'subject' => '[:app] Ticket Closed #:ticket_id',
+            'greeting' => 'Hello :name!',
+            'line1' => 'Your support ticket has been closed.',
+            'ticket_id' => '• Ticket ID: :value',
+            'action' => 'View Ticket',
+            'line2' => 'If you need further assistance, you can reopen this ticket or create a new one.',
+            'title' => 'Ticket Closed',
+            'message' => 'Your ticket #:ticket_id has been closed.',
+        ],
     ],
 ];

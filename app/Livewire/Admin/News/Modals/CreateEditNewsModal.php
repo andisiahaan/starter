@@ -36,6 +36,17 @@ class CreateEditNewsModal extends ModalComponent
         }
     }
 
+    /**
+     * Auto-generate slug when title changes (only on create mode).
+     */
+    public function updatedTitle(): void
+    {
+        // Only auto-generate slug on create mode
+        if (!$this->newsId) {
+            $this->slug = Str::slug($this->title);
+        }
+    }
+
     public function save(): void
     {
         $this->validate([

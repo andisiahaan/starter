@@ -63,14 +63,6 @@
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <?php echo e(__('common.nav.credits')); ?>
-
-                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(Auth::user() && Auth::user()->credit > 0): ?>
-                <span class="ml-auto px-2 py-0.5 text-xs font-medium rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400">
-                    <?php echo e(number_format(Auth::user()->credit, 0, ',', '.')); ?>
-
-                </span>
-                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </a>
 
             <!-- My Orders -->
@@ -84,6 +76,28 @@
             </a>
         </div>
 
+        
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(setting('referral.is_enabled', false)): ?>
+        <!-- Section: Referral -->
+        <div class="pt-4">
+            <p class="px-3 mb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                <?php echo e(__('common.nav.referral')); ?>
+
+            </p>
+
+            <!-- Referral Program -->
+            <a href="<?php echo e(route('app.referral.index')); ?>"
+                class="sidebar-link <?php echo e(request()->routeIs('app.referral.*') ? 'sidebar-link-active' : 'sidebar-link-default'); ?>">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <?php echo e(__('common.nav.referral_program')); ?>
+
+            </a>
+        </div>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+        
         <!-- Section: Support -->
         <div class="pt-4">
             <p class="px-3 mb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
@@ -110,33 +124,20 @@
                 <?php echo e(__('common.nav.news_updates')); ?>
 
             </a>
-        </div>
-
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(setting('referral.is_enabled', false)): ?>
-        <!-- Section: Referral -->
-        <div class="pt-4">
-            <p class="px-3 mb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                <?php echo e(__('common.nav.referral')); ?>
-
-            </p>
-
-            <!-- Referral Program -->
-            <a href="<?php echo e(route('app.referral.index')); ?>"
-                class="sidebar-link <?php echo e(request()->routeIs('app.referral.*') ? 'sidebar-link-active' : 'sidebar-link-default'); ?>">
+            
+            <!-- Help Center -->
+            <a href="<?php echo e(route('help.index')); ?>"
+                class="sidebar-link <?php echo e(request()->routeIs('help.*') ? 'sidebar-link-active' : 'sidebar-link-default'); ?>">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <?php echo e(__('common.nav.referral_program')); ?>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-4h.01M9 9a3 3 0 016 0c0 2-3 2-3 4" />
+</svg>
 
-                <?php if(Auth::user() && Auth::user()->available_commission > 0): ?>
-                <span class="ml-auto px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                    Rp <?php echo e(number_format(Auth::user()->available_commission, 0, ',', '.')); ?>
 
-                </span>
-                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                <?php echo e(__('common.nav.help_center')); ?>
+
             </a>
         </div>
-        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
         <!-- Section: Developer -->
         <div class="pt-4">
@@ -166,7 +167,7 @@
             </a>
         </div>
 
-        <?php if(Auth::user() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('superadmin'))): ?>
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(Auth::user() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('superadmin'))): ?>
         <!-- Section: Admin -->
         <div class="pt-4">
             <p class="px-3 mb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">

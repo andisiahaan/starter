@@ -2,7 +2,6 @@
 
 namespace App\Notifications\Orders;
 
-use App\Enums\NotificationChannel;
 use App\Enums\NotificationType;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
@@ -21,9 +20,6 @@ class CreditAddedNotification extends Notification implements ShouldQueue
 
     protected NotificationType $type;
 
-    /**
-     * Create a new notification instance.
-     */
     public function __construct(
         public Order $order,
         public float $creditAmount
@@ -32,49 +28,39 @@ class CreditAddedNotification extends Notification implements ShouldQueue
         $this->afterCommit();
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     public function via(object $notifiable): array
     {
-        // Use the trait method which checks both global and user settings
         return $notifiable->getNotificationViaChannels($this->type);
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
+        $appName = setting('main.name', config('app.name'));
         $newBalance = $notifiable->credit_balance ?? 0;
         
         return (new MailMessage)
-            ->subject('💰 Credit Added to Your Account - ' . config('app.name'))
-            ->greeting('Hello ' . $notifiable->name . '!')
-            ->line('Great news! Credit has been added to your account.')
-            ->line('**Transaction Details:**')
-            ->line('• Order ID: ' . $this->order->order_number)
-            ->line('• Product: ' . $this->order->product_name)
-            ->line('• Credit Added: ' . number_format($this->creditAmount, 0, ',', '.') . ' credits')
-            ->line('• New Balance: ' . number_format($newBalance, 0, ',', '.') . ' credits')
-            ->action('View Balance', route('app.credits.index'))
-            ->line('Thank you for your purchase!');
+            ->subject(__('orders.notifications.credit_added.subject', ['app' => $appName]))
+            ->greeting(__('orders.notifications.credit_added.greeting', ['name' => $notifiable->name]))
+            ->line(__('orders.notifications.credit_added.line1'))
+            ->line(__('orders.notifications.credit_added.details_title'))
+            ->line(__('orders.notifications.credit_added.order_id', ['value' => $this->order->order_number]))
+            ->line(__('orders.notifications.credit_added.product', ['value' => $this->order->product_name]))
+            ->line(__('orders.notifications.credit_added.credit_added', ['value' => number_format($this->creditAmount, 0, ',', '.')]))
+            ->line(__('orders.notifications.credit_added.new_balance', ['value' => number_format($newBalance, 0, ',', '.')]))
+            ->action(__('orders.notifications.credit_added.action'), route('app.credits.index'))
+            ->line(__('orders.notifications.credit_added.thanks'));
     }
 
-    /**
-     * Get the array representation of the notification for database.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(object $notifiable): array
     {
         return [
             'type' => $this->type->value,
             'category' => $this->type->getCategory(),
-            'title' => '💰 Credit Added',
-            'message' => number_format($this->creditAmount, 0, ',', '.') . " credits have been added to your account from order #{$this->order->order_number}.",
+            'title' => __('orders.notifications.credit_added.title'),
+            'message' => __('orders.notifications.credit_added.message', [
+                'amount' => number_format($this->creditAmount, 0, ',', '.'),
+                'order_number' => $this->order->order_number,
+            ]),
             'url' => route('app.credits.index'),
             'data' => [
                 'order_id' => $this->order->id,
@@ -86,18 +72,18 @@ class CreditAddedNotification extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the web push representation of the notification.
-     */
     public function toWebPush(object $notifiable, $notification): WebPushMessage
     {
         $icon = Storage::url(setting('main.logo'));
         
         return (new WebPushMessage)
-            ->title('💰 Credit Added!')
+            ->title(__('orders.notifications.credit_added.title'))
             ->icon($icon)
-            ->body(number_format($this->creditAmount, 0, ',', '.') . ' credits added from order #' . $this->order->order_number)
-            ->action('View Balance', route('app.credits.index'))
+            ->body(__('orders.notifications.credit_added.message', [
+                'amount' => number_format($this->creditAmount, 0, ',', '.'),
+                'order_number' => $this->order->order_number,
+            ]))
+            ->action(__('orders.notifications.credit_added.action'), route('app.credits.index'))
             ->badge($icon)
             ->vibrate([200, 100, 200])
             ->options([

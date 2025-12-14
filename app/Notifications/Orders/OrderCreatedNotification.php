@@ -2,7 +2,6 @@
 
 namespace App\Notifications\Orders;
 
-use App\Enums\NotificationChannel;
 use App\Enums\NotificationType;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
@@ -21,9 +20,6 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
 
     protected NotificationType $type;
 
-    /**
-     * Create a new notification instance.
-     */
     public function __construct(
         public Order $order
     ) {
@@ -31,48 +27,39 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
         $this->afterCommit();
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     public function via(object $notifiable): array
     {
-        // Use the trait method which checks both global and user settings
         return $notifiable->getNotificationViaChannels($this->type);
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
+        $appName = setting('main.name', config('app.name'));
+        
         return (new MailMessage)
-            ->subject('Order Created - ' . config('app.name'))
-            ->greeting('Hello ' . $notifiable->name . '!')
-            ->line('Your order has been successfully created.')
-            ->line('**Order Details:**')
-            ->line('• Order ID: ' . $this->order->order_number)
-            ->line('• Product: ' . $this->order->product_name)
-            ->line('• Amount: Rp ' . number_format($this->order->total_amount, 0, ',', '.'))
-            ->line('• Credit: ' . number_format($this->order->credit_amount, 0, ',', '.') . ' credits')
-            ->line('• Status: ' . ucfirst($this->order->status))
-            ->action('View Order', route('app.orders.show', $this->order->id))
-            ->line('Thank you for your purchase!');
+            ->subject(__('orders.notifications.created.subject', ['app' => $appName]))
+            ->greeting(__('orders.notifications.created.greeting', ['name' => $notifiable->name]))
+            ->line(__('orders.notifications.created.line1'))
+            ->line(__('orders.notifications.created.details_title'))
+            ->line(__('orders.notifications.created.order_id', ['value' => $this->order->order_number]))
+            ->line(__('orders.notifications.created.product', ['value' => $this->order->product_name]))
+            ->line(__('orders.notifications.created.amount', ['value' => 'Rp ' . number_format($this->order->total_amount, 0, ',', '.')]))
+            ->line(__('orders.notifications.created.credit', ['value' => number_format($this->order->credit_amount, 0, ',', '.')]))
+            ->line(__('orders.notifications.created.status', ['value' => ucfirst($this->order->status)]))
+            ->action(__('orders.notifications.created.action'), route('app.orders.show', $this->order->id))
+            ->line(__('orders.notifications.created.thanks'));
     }
 
-    /**
-     * Get the array representation of the notification for database.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(object $notifiable): array
     {
         return [
             'type' => $this->type->value,
             'category' => $this->type->getCategory(),
-            'title' => 'Order Created',
-            'message' => "Your order #{$this->order->order_number} for {$this->order->product_name} has been created.",
+            'title' => __('orders.notifications.created.title'),
+            'message' => __('orders.notifications.created.message', [
+                'order_number' => $this->order->order_number,
+                'product' => $this->order->product_name,
+            ]),
             'url' => route('app.orders.show', $this->order->id),
             'data' => [
                 'order_id' => $this->order->id,
@@ -85,18 +72,19 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the web push representation of the notification.
-     */
     public function toWebPush(object $notifiable, $notification): WebPushMessage
     {
         $icon = Storage::url(setting('main.logo'));
+        $appName = setting('main.name', config('app.name'));
         
         return (new WebPushMessage)
-            ->title('Order Created - ' . config('app.name'))
+            ->title(__('orders.notifications.created.title') . ' - ' . $appName)
             ->icon($icon)
-            ->body("Order #{$this->order->order_number} created for {$this->order->product_name}")
-            ->action('View Order', route('app.orders.show', $this->order->id))
+            ->body(__('orders.notifications.created.message', [
+                'order_number' => $this->order->order_number,
+                'product' => $this->order->product_name,
+            ]))
+            ->action(__('orders.notifications.created.action'), route('app.orders.show', $this->order->id))
             ->badge($icon)
             ->vibrate([100, 50, 100])
             ->options([

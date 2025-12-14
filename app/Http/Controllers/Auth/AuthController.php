@@ -286,12 +286,12 @@ class AuthController extends Controller
             if ($user->hasTwoFactorEnabled()) {
                 session([
                     'two_factor_user_id' => $user->id,
-                    'two_factor_remember' => false,
+                    'two_factor_remember' => true, // Auto remember for Google login
                 ]);
                 return redirect()->route('two-factor.challenge');
             }
 
-            Auth::login($user);
+            Auth::login($user, true); // Auto remember for Google login
             Alert::success('Logged in with Google!');
             return redirect('dashboard');
         } else {
@@ -306,7 +306,7 @@ class AuthController extends Controller
                 'name' => $googleUser->getName(),
                 'email' => $googleUser->getEmail(),
                 'password' => Hash::make(str()->random(24)), // Random password
-                'email_verified_at' => now(), // Assume Google email is verified
+                'email_verified_at' => now(), // Auto-verify for Google (already set)
             ];
 
             // Handle referral code from cookie
@@ -325,7 +325,7 @@ class AuthController extends Controller
                 $user->assignRole($defaultRole);
             }
 
-            Auth::login($user);
+            Auth::login($user, true); // Auto remember for Google login
             Alert::success('Account created with Google!');
             return redirect('dashboard');
         }
@@ -355,6 +355,13 @@ class AuthController extends Controller
 
         // Delete the pending change
         $pendingChange->delete();
+
+        // Send notification to OLD email (security alert)
+        \Illuminate\Support\Facades\Notification::route('mail', $oldEmail)
+            ->notify(new \App\Notifications\Account\EmailChangedNotification($oldEmail, $newEmail, false));
+
+        // Send notification to NEW email (welcome/confirmation)
+        $user->notify(new \App\Notifications\Account\EmailChangedNotification($oldEmail, $newEmail, true));
 
         activity()
             ->causedBy($user)

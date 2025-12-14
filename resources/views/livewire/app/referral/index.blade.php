@@ -45,6 +45,40 @@
         </div>
     </div>
 
+    <!-- Referral Code -->
+    <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5 mb-4">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('referral.user.code.label') }}</h3>
+            @if(!$editingCode)
+            <button wire:click="startEditingCode" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                {{ __('referral.user.code.edit') }}
+            </button>
+            @endif
+        </div>
+        
+        @if($editingCode)
+        <div class="flex gap-2">
+            <input type="text" wire:model="newReferralCode" 
+                   class="flex-1 bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 text-sm uppercase"
+                   placeholder="YOUR_CODE"
+                   wire:keydown.enter="updateReferralCode">
+            <button wire:click="updateReferralCode" class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition">
+                {{ __('referral.user.code.save') }}
+            </button>
+            <button wire:click="cancelEditingCode" class="px-4 py-2 bg-slate-100 dark:bg-dark-soft text-slate-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-dark-border transition">
+                {{ __('referral.user.code.cancel') }}
+            </button>
+        </div>
+        @error('newReferralCode') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+        @else
+        <div class="flex items-center gap-3">
+            <span class="px-4 py-2.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-mono font-bold rounded-lg text-lg">
+                {{ $referralCode }}
+            </span>
+        </div>
+        @endif
+    </div>
+
     <!-- Referral Link -->
     <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5 mb-8">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Your Referral Link</h3>

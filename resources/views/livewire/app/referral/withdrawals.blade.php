@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{{ __('referral.user.withdrawals.title') }}</h1>
             <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('referral.user.withdrawals.available') }} <span class="font-semibold text-green-600">Rp {{ number_format($availableCommission, 0, ',', '.') }}</span></p>
         </div>
-        <button wire:click="openRequestModal" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+        <button wire:click="$dispatch('openModal', { component: 'app.referral.modals.request-withdrawal-modal' })" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
@@ -66,69 +66,6 @@
         @endif
     </div>
 
-    <!-- Request Withdrawal Modal -->
-    @if($showRequestModal)
-    <div class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-slate-500/75 dark:bg-slate-900/80 transition-opacity" wire:click="closeRequestModal"></div>
-
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-
-            <div class="inline-block align-bottom bg-white dark:bg-dark-elevated rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <form wire:submit="requestWithdrawal">
-                    <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('referral.user.withdrawals.modal.title') }}</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('referral.user.withdrawals.modal.available') }} Rp {{ number_format($availableCommission, 0, ',', '.') }}</p>
-                    </div>
-
-                    <div class="px-6 py-5 space-y-4">
-                        <!-- Amount -->
-                        <div>
-                            <label for="amount" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('referral.user.withdrawals.modal.amount') }}</label>
-                            <input type="number" wire:model="amount" id="amount" min="10000" max="{{ $availableCommission }}" step="1000"
-                                   class="w-full bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 focus:ring-primary-500 focus:border-primary-500">
-                            @error('amount') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
-                        </div>
-
-                        <!-- Bank Name -->
-                        <div>
-                            <label for="bankName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('referral.user.withdrawals.modal.bank_name') }}</label>
-                            <input type="text" wire:model="bankName" id="bankName" placeholder="{{ __('referral.user.withdrawals.modal.bank_placeholder') }}"
-                                   class="w-full bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 focus:ring-primary-500 focus:border-primary-500">
-                            @error('bankName') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
-                        </div>
-
-                        <!-- Account Number -->
-                        <div>
-                            <label for="accountNumber" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('referral.user.withdrawals.modal.account_number') }}</label>
-                            <input type="text" wire:model="accountNumber" id="accountNumber" placeholder="{{ __('referral.user.withdrawals.modal.account_number_placeholder') }}"
-                                   class="w-full bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 focus:ring-primary-500 focus:border-primary-500">
-                            @error('accountNumber') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
-                        </div>
-
-                        <!-- Account Holder -->
-                        <div>
-                            <label for="accountHolder" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('referral.user.withdrawals.modal.account_holder') }}</label>
-                            <input type="text" wire:model="accountHolder" id="accountHolder" placeholder="{{ __('referral.user.withdrawals.modal.account_holder_placeholder') }}"
-                                   class="w-full bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 focus:ring-primary-500 focus:border-primary-500">
-                            @error('accountHolder') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-
-                    <div class="px-6 py-4 bg-slate-50 dark:bg-dark-soft flex justify-end gap-3">
-                        <button type="button" wire:click="closeRequestModal" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-muted rounded-lg transition-colors">
-                            {{ __('referral.user.withdrawals.modal.cancel') }}
-                        </button>
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors">
-                            {{ __('referral.user.withdrawals.modal.submit') }}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    @endif
-
     <!-- Back Link -->
     <div class="mt-6">
         <a href="{{ route('app.referral.index') }}" class="inline-flex items-center text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
@@ -138,4 +75,5 @@
             {{ __('referral.user.withdrawals.back') }}
         </a>
     </div>
+
 </div>

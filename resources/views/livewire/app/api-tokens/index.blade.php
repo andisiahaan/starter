@@ -13,6 +13,32 @@
             </button>
         </div>
 
+        {{-- New Token Display --}}
+        @if($newToken)
+        <div class="mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700/30">
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-sm font-medium text-green-800 dark:text-green-300">{{ __('api-tokens.token_created.title') }}</h3>
+                    <p class="text-xs text-green-700 dark:text-green-400 mt-1">{{ __('api-tokens.token_created.warning') }}</p>
+                    <div class="mt-3 p-3 bg-white dark:bg-dark-soft rounded-lg border border-green-200 dark:border-dark-border">
+                        <div class="flex items-center justify-between gap-4">
+                            <code class="text-sm text-primary-600 dark:text-primary-400 break-all select-all font-mono">{{ $newToken }}</code>
+                            <button onclick="navigator.clipboard.writeText('{{ $newToken }}').then(() => { this.innerText = '{{ __('common.actions.copied') }}'; setTimeout(() => this.innerText = '{{ __('common.actions.copy') }}', 2000); })" 
+                                class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-md hover:bg-primary-100 dark:hover:bg-primary-900/30 transition">
+                                {{ __('common.actions.copy') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="mt-6 bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden shadow-sm">
             @if($tokens->isEmpty())
             <div class="text-center py-12">

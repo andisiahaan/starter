@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    public ?string $newToken = null;
+
     /**
      * Re-render when tokens are updated.
      */
@@ -17,12 +19,12 @@ class Index extends Component
     }
 
     /**
-     * Handle token created event to show the token modal.
+     * Handle token created event to display the token.
      */
     #[On('tokenCreated')]
     public function onTokenCreated(string $plainTextToken): void
     {
-        $this->dispatch('openModal', component: 'app.api-tokens.modals.show-token-modal', arguments: ['token' => $plainTextToken]);
+        $this->newToken = $plainTextToken;
     }
 
     public function render()

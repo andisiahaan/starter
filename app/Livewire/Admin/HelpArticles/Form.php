@@ -94,6 +94,8 @@ class Form extends Component
         return view('admin.livewire.help-articles.form', [
             'categories' => $categories,
             'isEditing' => (bool) $this->article?->exists,
-        ])->layout('admin.layouts.app');
+        ])->layout('admin.layouts.app', [
+            'title' => __('help.admin.articles.create'),
+            ]);
     }
 }

@@ -50,6 +50,6 @@ class Index extends Component
 
         return view('admin.livewire.blog.categories.index', [
             'categories' => $categories,
-        ])->layout('admin.layouts.app');
+        ])->layout('admin.layouts.app')->title(__('blog.categories.title'));
     }
 }

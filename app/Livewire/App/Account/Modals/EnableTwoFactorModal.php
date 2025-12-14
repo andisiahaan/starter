@@ -55,8 +55,12 @@ class EnableTwoFactorModal extends ModalComponent
             return;
         }
 
-        $this->recoveryCodes = $service->enable(Auth::user(), $this->secret);
+        $user = Auth::user();
+        $this->recoveryCodes = $service->enable($user, $this->secret);
         $this->showRecoveryCodes = true;
+
+        // Send security notification
+        $user->notify(new \App\Notifications\Account\TwoFactorEnabledNotification());
     }
 
     public function finish(): void

@@ -48,6 +48,22 @@
                     @error('type') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
+
+            {{-- Flow Selection --}}
+            <div>
+                <label for="flow" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Flow</label>
+                <select wire:model="flow" id="flow" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
+                    @foreach($flows as $key => $label)
+                    <option value="{{ $key }}">{{ $label }}</option>
+                    @endforeach
+                </select>
+                @error('flow') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    <span class="font-medium">Deposit:</span> For incoming payments |
+                    <span class="font-medium">Withdraw:</span> For payouts |
+                    <span class="font-medium">Both:</span> Can be used for both
+                </p>
+            </div>
             <div>
                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
                 <input type="text" id="name" wire:model="name" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">

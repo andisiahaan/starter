@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'phone',
         'credit',
+        'referral_balance',
         'preferences',
         'two_factor_secret',
         'two_factor_recovery_codes',
@@ -68,6 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'credit' => 'decimal:2',
+            'referral_balance' => 'decimal:2',
             'preferences' => 'array',
             'two_factor_confirmed_at' => 'datetime',
             'two_factor_secret' => 'encrypted',
@@ -137,13 +139,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get total available commission for withdrawal.
+     * Get available balance for withdrawal (uses stored referral_balance).
      */
     public function getAvailableCommissionAttribute(): float
     {
-        return (float) $this->referralCommissions()
-            ->where('status', ReferralCommission::STATUS_AVAILABLE)
-            ->sum('amount');
+        return (float) $this->referral_balance;
     }
 
     /**
@@ -174,6 +174,82 @@ class User extends Authenticatable implements MustVerifyEmail
         return (float) $this->referralCommissions()
             ->whereNotIn('status', [ReferralCommission::STATUS_CANCELED, ReferralCommission::STATUS_EXPIRED])
             ->sum('amount');
+    }
+
+    /**
+     * Get referral balance logs.
+     */
+    public function referralBalanceLogs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\ReferralBalanceLog::class);
+    }
+
+    /**
+     * Add to referral balance.
+     *
+     * @param float $amount Amount to add (positive)
+     * @param \App\Enums\ReferralBalanceLogType $type Transaction type
+     * @param string|null $description Transaction description
+     * @param \Illuminate\Database\Eloquent\Model|null $reference Related model
+     * @return \App\Models\ReferralBalanceLog
+     */
+    public function addReferralBalance(
+        float $amount,
+        \App\Enums\ReferralBalanceLogType $type,
+        ?string $description = null,
+        ?\Illuminate\Database\Eloquent\Model $reference = null
+    ): \App\Models\ReferralBalanceLog {
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($amount, $type, $description, $reference) {
+            $balanceBefore = $this->referral_balance;
+            $this->increment('referral_balance', abs($amount));
+            $this->refresh();
+
+            return $this->referralBalanceLogs()->create([
+                'amount' => abs($amount),
+                'balance_before' => $balanceBefore,
+                'balance_after' => $this->referral_balance,
+                'type' => $type,
+                'description' => $description,
+                'reference_type' => $reference ? get_class($reference) : null,
+                'reference_id' => $reference?->id,
+            ]);
+        });
+    }
+
+    /**
+     * Deduct from referral balance.
+     *
+     * @param float $amount Amount to deduct (positive)
+     * @param \App\Enums\ReferralBalanceLogType $type Transaction type
+     * @param string|null $description Transaction description
+     * @param \Illuminate\Database\Eloquent\Model|null $reference Related model
+     * @return \App\Models\ReferralBalanceLog|null Returns null if insufficient balance
+     */
+    public function deductReferralBalance(
+        float $amount,
+        \App\Enums\ReferralBalanceLogType $type,
+        ?string $description = null,
+        ?\Illuminate\Database\Eloquent\Model $reference = null
+    ): ?\App\Models\ReferralBalanceLog {
+        if ($this->referral_balance < $amount) {
+            return null;
+        }
+
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($amount, $type, $description, $reference) {
+            $balanceBefore = $this->referral_balance;
+            $this->decrement('referral_balance', abs($amount));
+            $this->refresh();
+
+            return $this->referralBalanceLogs()->create([
+                'amount' => -abs($amount),
+                'balance_before' => $balanceBefore,
+                'balance_after' => $this->referral_balance,
+                'type' => $type,
+                'description' => $description,
+                'reference_type' => $reference ? get_class($reference) : null,
+                'reference_id' => $reference?->id,
+            ]);
+        });
     }
 
     /**

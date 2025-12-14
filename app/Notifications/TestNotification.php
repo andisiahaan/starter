@@ -38,7 +38,7 @@ class TestNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject($this->type->getLabel() . ' - ' . config('app.name'))
+            ->subject($this->type->getLabel() . ' - ' . setting('main.name', config('app.name')))
             ->greeting('Hello ' . $notifiable->name . '!')
             ->line('This is a test notification to verify your email notification setup is working correctly.')
             ->line('Type: ' . $this->type->getLabel())
@@ -70,7 +70,7 @@ class TestNotification extends Notification
     {   
         $icon = Storage::url(setting('main.logo'));
         return (new WebPushMessage)
-            ->title($this->type->getLabel() . ' - ' . config('app.name'))
+            ->title($this->type->getLabel() . ' - ' . setting('main.name', config('app.name')))
             ->icon($icon)
             ->body($this->type->getDescription())
             ->action('View', route('app.index'))

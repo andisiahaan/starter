@@ -30,6 +30,9 @@ class DisableTwoFactorModal extends ModalComponent
         $service = new TwoFactorService();
         $service->disable($user);
 
+        // Send security notification
+        $user->notify(new \App\Notifications\Account\TwoFactorDisabledNotification());
+
         $this->dispatch('two-factor-disabled');
         session()->flash('success', __('account.two_factor.disabled'));
         $this->closeModal();

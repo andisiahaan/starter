@@ -181,9 +181,32 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
 
                 <!-- Categories -->
                 <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border">
+                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
                         <h3 class="text-sm font-semibold text-slate-900 dark:text-white"><?php echo e(__('blog.public.categories')); ?></h3>
+                        <button type="button" wire:click="$toggle('showNewCategoryInput')" class="text-xs text-primary-600 hover:text-primary-700">
+                            <?php echo e($showNewCategoryInput ? __('common.actions.cancel') : '+ ' . __('blog.form.add_new')); ?>
+
+                        </button>
                     </div>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($showNewCategoryInput): ?>
+                    <div class="p-4 bg-slate-50 dark:bg-dark-soft border-b border-slate-200 dark:border-dark-border">
+                        <div class="flex gap-2">
+                            <input type="text" wire:model="newCategoryName" wire:keydown.enter="createCategory" placeholder="<?php echo e(__('blog.categories.form.name_placeholder')); ?>" class="flex-1 rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white text-sm focus:border-primary-500 focus:ring-primary-500">
+                            <button type="button" wire:click="createCategory" class="px-3 py-2 bg-primary-600 text-white text-xs font-medium rounded-lg hover:bg-primary-700">
+                                <?php echo e(__('common.actions.add')); ?>
+
+                            </button>
+                        </div>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['newCategoryName'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs mt-1 block"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     <div class="p-6 max-h-48 overflow-y-auto">
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
                         <label class="flex items-center gap-2 py-1">
@@ -191,16 +214,39 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
                             <span class="text-sm text-slate-700 dark:text-slate-300"><?php echo e($category->name); ?></span>
                         </label>
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
-                        <p class="text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('blog.form.no_categories')); ?> <a href="<?php echo e(route('admin.blog.categories.index')); ?>" class="text-primary-600"><?php echo e(__('blog.form.create_one')); ?></a></p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('blog.form.no_categories')); ?></p>
                         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                 </div>
 
                 <!-- Tags -->
                 <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border">
+                    <div class="px-6 py-4 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
                         <h3 class="text-sm font-semibold text-slate-900 dark:text-white"><?php echo e(__('blog.public.tags')); ?></h3>
+                        <button type="button" wire:click="$toggle('showNewTagInput')" class="text-xs text-primary-600 hover:text-primary-700">
+                            <?php echo e($showNewTagInput ? __('common.actions.cancel') : '+ ' . __('blog.form.add_new')); ?>
+
+                        </button>
                     </div>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($showNewTagInput): ?>
+                    <div class="p-4 bg-slate-50 dark:bg-dark-soft border-b border-slate-200 dark:border-dark-border">
+                        <div class="flex gap-2">
+                            <input type="text" wire:model="newTagName" wire:keydown.enter="createTag" placeholder="<?php echo e(__('blog.tags.form.name_placeholder')); ?>" class="flex-1 rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white text-sm focus:border-primary-500 focus:ring-primary-500">
+                            <button type="button" wire:click="createTag" class="px-3 py-2 bg-primary-600 text-white text-xs font-medium rounded-lg hover:bg-primary-700">
+                                <?php echo e(__('common.actions.add')); ?>
+
+                            </button>
+                        </div>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['newTagName'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs mt-1 block"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     <div class="p-6 max-h-48 overflow-y-auto">
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoop($loop->index); ?><?php endif; ?>
                         <label class="flex items-center gap-2 py-1">
@@ -208,7 +254,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
                             <span class="text-sm text-slate-700 dark:text-slate-300"><?php echo e($tag->name); ?></span>
                         </label>
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
-                        <p class="text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('blog.form.no_tags')); ?> <a href="<?php echo e(route('admin.blog.tags.index')); ?>" class="text-primary-600"><?php echo e(__('blog.form.create_one')); ?></a></p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('blog.form.no_tags')); ?></p>
                         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                 </div>

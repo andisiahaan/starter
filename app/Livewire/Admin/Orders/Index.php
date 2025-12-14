@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Orders;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -16,20 +17,6 @@ class Index extends Component
     public string $statusFilter = '';
     public string $dateFrom = '';
     public string $dateTo = '';
-
-    public array $statuses = [
-        'pending' => 'Pending',
-        'verified' => 'Verified',
-        'failed' => 'Failed',
-        'cancelled' => 'Cancelled',
-    ];
-
-    public array $statusColors = [
-        'pending' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-        'verified' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-        'failed' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-        'cancelled' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-    ];
 
     public function updatingSearch(): void
     {
@@ -87,7 +74,11 @@ class Index extends Component
     protected function getOrdersQuery()
     {
         return Order::query()
-            ->with(['user', 'product', 'paymentMethod'])
+            ->with([
+                'user',
+                'product' => fn($q) => $q->withTrashed(), // Include soft-deleted products
+                'paymentMethod',
+            ])
             ->when($this->search, fn($q) => $q->where('order_number', 'like', "%{$this->search}%")
                 ->orWhereHas('user', fn($uq) => $uq->where('name', 'like', "%{$this->search}%")
                     ->orWhere('email', 'like', "%{$this->search}%")))
@@ -109,6 +100,7 @@ class Index extends Component
 
         return view('admin.livewire.orders.index', [
             'orders' => $orders,
+            'statuses' => OrderStatus::toSelectOptions(),
         ])->layout('admin.layouts.app', ['title' => 'Orders']);
     }
 }

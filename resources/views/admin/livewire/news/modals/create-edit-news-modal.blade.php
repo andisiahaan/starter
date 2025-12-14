@@ -17,7 +17,7 @@
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2 sm:col-span-1">
                     <label for="title" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('common.table.name') }}</label>
-                    <input type="text" id="title" wire:model="title" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
+                    <input type="text" id="title" wire:model.live="title" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('title') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-span-2 sm:col-span-1">

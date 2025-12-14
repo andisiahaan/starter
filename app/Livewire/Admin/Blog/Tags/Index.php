@@ -43,6 +43,6 @@ class Index extends Component
 
         return view('admin.livewire.blog.tags.index', [
             'tags' => $tags,
-        ])->layout('admin.layouts.app');
+        ])->layout('admin.layouts.app')->title(__('blog.tags.title'));
     }
 }

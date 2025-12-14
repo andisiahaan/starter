@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Models\News;
 use App\Models\Order;
+use App\Models\ReferralCommission;
 use App\Models\Ticket;
 use App\Models\TicketReply;
 use App\Models\User;
 use App\Observers\NewsObserver;
 use App\Observers\OrderObserver;
+use App\Observers\ReferralCommissionObserver;
 use App\Observers\TicketObserver;
 use App\Observers\TicketReplyObserver;
 use App\Observers\UserObserver;
@@ -41,5 +43,6 @@ class AppServiceProvider extends ServiceProvider
         Ticket::observe(TicketObserver::class);
         TicketReply::observe(TicketReplyObserver::class);
         News::observe(NewsObserver::class);
+        ReferralCommission::observe(ReferralCommissionObserver::class);
     }
 }

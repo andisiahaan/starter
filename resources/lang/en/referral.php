@@ -195,6 +195,22 @@ return [
         'step1' => 'Share your referral link with friends',
         'step2' => 'They sign up using your link',
         'step3' => 'Earn commission when they make purchases',
+
+        // Referral code editing
+        'code' => [
+            'label' => 'Referral Code',
+            'edit' => 'Edit',
+            'save' => 'Save',
+            'cancel' => 'Cancel',
+            'updated' => 'Referral code updated successfully!',
+            'validation' => [
+                'required' => 'Referral code is required.',
+                'min' => 'Referral code must be at least 4 characters.',
+                'max' => 'Referral code cannot exceed 20 characters.',
+                'alpha_dash' => 'Referral code can only contain letters, numbers, dashes, and underscores.',
+                'unique' => 'This referral code is already taken.',
+            ],
+        ],
         
         // User-facing Withdrawals Page
         'withdrawals' => [
@@ -218,6 +234,10 @@ return [
             'modal' => [
                 'title' => 'Request Withdrawal',
                 'available' => 'Available:',
+                'payment_method' => 'Payment Method',
+                'select_payment_method' => 'Select payment method...',
+                'min_amount' => 'Minimum',
+                'max_amount' => 'Maximum',
                 'amount' => 'Amount',
                 'bank_name' => 'Bank Name',
                 'bank_placeholder' => 'e.g. BCA, Mandiri, BNI',
@@ -225,9 +245,44 @@ return [
                 'account_number_placeholder' => '1234567890',
                 'account_holder' => 'Account Holder Name',
                 'account_holder_placeholder' => 'John Doe',
+                'password' => 'Password',
+                'password_placeholder' => 'Enter your password',
+                'otp' => 'Verification Code',
+                'otp_placeholder' => 'Enter 6-digit code',
+                'send_otp' => 'Send OTP',
                 'cancel' => 'Cancel',
                 'submit' => 'Submit Request',
+                'processing' => 'Processing...',
             ],
+
+            'otp' => [
+                'sent' => 'Verification code sent to your email.',
+                'sent_message' => 'OTP has been sent to your email. Valid for 10 minutes.',
+                'cooldown' => 'Please wait :seconds seconds before requesting again.',
+                'email_subject' => '[:app] Withdrawal Verification Code',
+                'email_body' => "Your withdrawal verification code is: :otp\n\nThis code is valid for 10 minutes. Do not share this code with anyone.\n\n- :app Team",
+            ],
+
+            'validation' => [
+                'payment_method_required' => 'Please select a payment method.',
+                'min' => 'Minimum withdrawal is :amount',
+                'max' => 'Maximum withdrawal is :amount',
+                'bank_name_required' => 'Bank name is required',
+                'account_number_required' => 'Account number is required',
+                'account_holder_required' => 'Account holder name is required',
+                'password_required' => 'Password is required for verification.',
+                'password_incorrect' => 'The password you entered is incorrect.',
+                'otp_required' => 'Please enter the verification code.',
+                'otp_invalid' => 'Verification code must be 6 digits.',
+                'otp_incorrect' => 'The verification code is incorrect or expired.',
+            ],
+
+            'error' => [
+                'disabled' => 'Withdrawals are currently disabled.',
+                'insufficient' => 'Insufficient available commission.',
+            ],
+
+            'success' => 'Withdrawal request submitted successfully!',
         ],
     ],
 ];

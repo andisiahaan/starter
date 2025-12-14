@@ -14,6 +14,7 @@ return [
     
     // Full page form translations
     'form' => [
+        'add_new' => 'Add new',
         'edit_post' => 'Edit Post',
         'create_post' => 'Create New Post',
         'edit_subtitle' => 'Update your blog post',
@@ -149,6 +150,7 @@ return [
             'description' => 'Description',
             'order' => 'Order',
             'active' => 'Active',
+            'name_placeholder' => 'Enter category name',
         ],
         
         'empty' => 'No categories found.',
@@ -158,6 +160,9 @@ return [
             'updated' => 'Category updated successfully.',
             'deleted' => 'Category deleted successfully.',
             'has_posts' => 'Cannot delete category with posts. Remove posts first.',
+        ],
+        'validation' => [
+            'name_required' => 'Category name is required.',
         ],
     ],
 
@@ -174,6 +179,7 @@ return [
             'name' => 'Name',
             'slug' => 'Slug',
             'description' => 'Description',
+            'name_placeholder' => 'Enter tag name',
         ],
         
         'posts_count' => ':count posts',
@@ -183,6 +189,9 @@ return [
             'created' => 'Tag created successfully.',
             'updated' => 'Tag updated successfully.',
             'deleted' => 'Tag deleted successfully.',
+        ],
+        'validation' => [
+            'name_required' => 'Tag name is required.',
         ],
     ],
 
