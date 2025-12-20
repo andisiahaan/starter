@@ -15,6 +15,7 @@
                     <option value="custom-tags"><?php echo e(__('admin.settings.nav.custom_tags')); ?></option>
                     <option value="notifications"><?php echo e(__('admin.settings.nav.notifications')); ?></option>
                     <option value="referral"><?php echo e(__('admin.settings.nav.referral')); ?></option>
+                    <option value="free-credit"><?php echo e(__('admin.settings.nav.free_credit')); ?></option>
                 </select>
             </div>
 
@@ -90,6 +91,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <?php echo e(__('admin.settings.nav.referral')); ?>
+
+                </button>
+
+                <button wire:click="setSection('free-credit')" class="<?php echo e($section === 'free-credit' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 border-primary-500' : 'text-slate-600 dark:text-slate-300 border-transparent hover:bg-slate-100 dark:hover:bg-dark-soft hover:text-slate-900 dark:hover:text-white'); ?> group rounded-lg px-3 py-2.5 flex items-center text-sm font-medium w-full text-left border-l-2 transition-all">
+                    <svg class="w-5 h-5 mr-3 <?php echo e($section === 'free-credit' ? 'text-primary-600 dark:text-primary-400' : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400'); ?>" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                    </svg>
+                    <?php echo e(__('admin.settings.nav.free_credit')); ?>
 
                 </button>
             </nav>
@@ -292,6 +301,29 @@ $key = 'referral';
 $__componentSlots = [];
 
 $key ??= \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::generateKey('lw-1754388722-8', $key);
+
+$__html = app('livewire')->mount($__name, $__params, $key, $__componentSlots);
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__componentSlots);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+            <?php elseif($section === 'free-credit'): ?>
+            <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('admin.settings.free-credit');
+
+$key = 'free-credit';
+$__componentSlots = [];
+
+$key ??= \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::generateKey('lw-1754388722-9', $key);
 
 $__html = app('livewire')->mount($__name, $__params, $key, $__componentSlots);
 

@@ -63,6 +63,7 @@ return [
     'note_optional' => 'Note (optional)',
     'note_placeholder' => 'Add a note...',
     'processing' => 'Processing...',
+    'loading' => 'Loading...',
 
     // ==========================================
     // STATUS

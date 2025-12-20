@@ -15,6 +15,7 @@
                     <option value="custom-tags">{{ __('admin.settings.nav.custom_tags') }}</option>
                     <option value="notifications">{{ __('admin.settings.nav.notifications') }}</option>
                     <option value="referral">{{ __('admin.settings.nav.referral') }}</option>
+                    <option value="free-credit">{{ __('admin.settings.nav.free_credit') }}</option>
                 </select>
             </div>
 
@@ -83,6 +84,13 @@
                     </svg>
                     {{ __('admin.settings.nav.referral') }}
                 </button>
+
+                <button wire:click="setSection('free-credit')" class="{{ $section === 'free-credit' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 border-primary-500' : 'text-slate-600 dark:text-slate-300 border-transparent hover:bg-slate-100 dark:hover:bg-dark-soft hover:text-slate-900 dark:hover:text-white' }} group rounded-lg px-3 py-2.5 flex items-center text-sm font-medium w-full text-left border-l-2 transition-all">
+                    <svg class="w-5 h-5 mr-3 {{ $section === 'free-credit' ? 'text-primary-600 dark:text-primary-400' : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                    </svg>
+                    {{ __('admin.settings.nav.free_credit') }}
+                </button>
             </nav>
         </aside>
 
@@ -106,6 +114,8 @@
             @livewire('admin.settings.notifications', key('notifications'))
             @elseif($section === 'referral')
             @livewire('admin.settings.referral', key('referral'))
+            @elseif($section === 'free-credit')
+            @livewire('admin.settings.free-credit', key('free-credit'))
             @endif
         </div>
     </div>

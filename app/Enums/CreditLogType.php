@@ -9,6 +9,7 @@ enum CreditLogType: string
     case REFUND = 'refund';
     case BONUS = 'bonus';
     case WITHDRAWAL = 'withdrawal';
+    case FREE_CREDIT = 'free_credit';
 
     /**
      * Get localized label for the type.
@@ -37,6 +38,7 @@ enum CreditLogType: string
             self::REFUND => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>',
             self::BONUS => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>',
             self::WITHDRAWAL => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            self::FREE_CREDIT => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         };
     }
 
@@ -51,6 +53,7 @@ enum CreditLogType: string
             self::REFUND => 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
             self::BONUS => 'bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-400',
             self::WITHDRAWAL => 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
+            self::FREE_CREDIT => 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400',
         };
     }
 
@@ -65,6 +68,7 @@ enum CreditLogType: string
             self::REFUND => 'text-blue-500 dark:text-blue-400',
             self::BONUS => 'text-pink-500 dark:text-pink-400',
             self::WITHDRAWAL => 'text-red-500 dark:text-red-400',
+            self::FREE_CREDIT => 'text-emerald-500 dark:text-emerald-400',
         };
     }
 
@@ -74,7 +78,7 @@ enum CreditLogType: string
     public function isCredit(): bool
     {
         return match ($this) {
-            self::PURCHASE, self::REFUND, self::BONUS, self::ADMIN_ADJUSTMENT => true,
+            self::PURCHASE, self::REFUND, self::BONUS, self::ADMIN_ADJUSTMENT, self::FREE_CREDIT => true,
             self::WITHDRAWAL => false,
         };
     }

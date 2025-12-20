@@ -2,6 +2,9 @@
     <h1 class="text-2xl font-semibold text-slate-900 dark:text-white">{{ __('dashboard.title') }}</h1>
 
     <div class="mt-6 grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3">
+        <!-- Free Credit Claim Widget -->
+        @livewire('app.dashboard.free-credit-widget')
+        
         <!-- Credit Balance Card -->
         <div class="lg:col-span-2 bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl shadow-lg overflow-hidden">
             <div class="px-6 py-6 sm:px-8">

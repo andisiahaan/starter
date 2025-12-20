@@ -942,6 +942,7 @@ return [
             'custom_tags' => 'Custom Tags',
             'notifications' => 'Notifications',
             'referral' => 'Referral Program',
+            'free_credit' => 'Free Credit',
         ],
         
         'sr' => [

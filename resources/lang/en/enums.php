@@ -91,6 +91,7 @@ return [
             'refund' => 'Refund',
             'bonus' => 'Bonus',
             'withdrawal' => 'Withdrawal',
+            'free_credit' => 'Free Credit',
         ],
         'descriptions' => [
             'purchase' => 'Credit added from package purchase',
@@ -98,6 +99,7 @@ return [
             'refund' => 'Credit returned from cancelled transaction',
             'bonus' => 'Bonus credit from promotion or reward',
             'withdrawal' => 'Credit withdrawal from account',
+            'free_credit' => 'Monthly free credit claim',
         ],
     ],
     

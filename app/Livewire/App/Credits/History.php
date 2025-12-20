@@ -40,6 +40,6 @@ class History extends Component
             'logs' => $logs,
         ])
             ->layout('layouts.app')
-            ->title(__('credits.history.title'));
+            ->title(__('credits.credit_logs.title'));
     }
 }

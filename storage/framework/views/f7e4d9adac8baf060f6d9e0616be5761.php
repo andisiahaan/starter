@@ -2,6 +2,30 @@
     <h1 class="text-2xl font-semibold text-slate-900 dark:text-white"><?php echo e(__('dashboard.title')); ?></h1>
 
     <div class="mt-6 grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3">
+        <!-- Free Credit Claim Widget -->
+        <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('app.dashboard.free-credit-widget');
+
+$key = null;
+$__componentSlots = [];
+
+$key ??= \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::generateKey('lw-3255357199-0', $key);
+
+$__html = app('livewire')->mount($__name, $__params, $key, $__componentSlots);
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__componentSlots);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+        
         <!-- Credit Balance Card -->
         <div class="lg:col-span-2 bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl shadow-lg overflow-hidden">
             <div class="px-6 py-6 sm:px-8">
